@@ -1,12 +1,13 @@
 <div class="layout">
+<% books.forEach(function(book) { %>
 	<div class="book border">
 		<div class="upper-half">
-			<img src="#" class="img-fluid img-thumbnail">
+			<img src="<%= book.imagem %>" class="img-fluid img-thumbnail">
 			<div class="informacao">
-				<h3 class="item">Titulo</h3>
-				<h3 class="item">Autor</h3>
-				<h3 class="item">Data</h3>
-				<h3 class="item">Alguma coisa</h3>
+				<h3 class="item"><%= book.titulo %></h3>
+				<h3 class="item"><%= book.autor %></h3>
+				<h3 class="item"><%= book.data %></h3>
+				<h3 class="item"><%= book.paginas %></h3>
 
 				<div class="buttons">
 					<a class="btn btn-primary">Ver completo</a>
@@ -17,9 +18,9 @@
 
 		<div class= "bottom-half">
 			<div class="sinopse">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut vehicula urna. Sed vehicula felis ac quam efficitur, sed sollicitudin turpis luctus. Duis pulvinar ultricies arcu eget gravida. Phasellus vel quam vitae turpis tempor maximus. Morbi mollis nisl lorem, at euismod nulla rhoncus sed. Nam nec turpis cursus quam gravida accumsan quis sed turpis. In hac habitasse platea dictumst. Nullam aliquet, nulla in volutpat vestibulum, lacus purus mattis urna, a accumsan enim ex ut dolor. Nullam scelerisque fringilla dignissim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+				<p><%= book.sinopse %></p>
 			</div>
 		</div>
 	</div>
-
+<% }); %>
 </div>
