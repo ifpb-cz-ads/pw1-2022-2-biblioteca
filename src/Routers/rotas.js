@@ -9,6 +9,14 @@ app.get('/', (req, res) => {
 app.get('/book', (req, res) => {
 	res.render('book-page');
 })
+
+app.get('/login', (req, res) => {
+	res.render('login');
+})
+
+app.get('/signin', (req, res) => {
+	res.render('signIn');
+})
 //aqui são as rotas que a gente decide quantas vai criar:
 
 module.exports = app;
