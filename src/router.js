@@ -3,6 +3,7 @@ const router = express.Router();
 const Livro = require('./models/Livro');
 const Usuario = require('./models/Usuario');
 const Emprestimo = require('./models/Emprestimo');
+const Emprestimo = require('./models/Emprestimo');
 
 
 router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
@@ -64,9 +65,38 @@ router.get('/acharLivro',(req,res)=>{
     });
 })
 
+router.get('/teste/:id/:user/:dtEmp/:dtEntre/:dias',async(req,res)=>{
+  const id2 = await Livro.findById(req.params.id);
+  console.log(id2);
+  
+  const idUser = await Usuario.findById(req.params.user);
+  console.log(idUser);
+
+  const novoEmprestimo = new Emprestimo({
+    dataEmprestimo: new Date(req.params.dtEmp),
+    dataEntrega: new Date(req.params.dtEntre),
+    livroId: id2,
+    usuarioId: idUser,
+    diasDesdeUltimoEmprestimo: req.params.dias
+  });
+  
+  novoEmprestimo.save((err, result) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      // res.status(200).json({mensagem:result});
+      res.status(200).send(JSON.stringify(result));
+    }
+  });
+
+})
+
+
+
 
 
 module.exports = router;
 
 //http://localhost:3000/micachan/melinda/sarauiva/1999-10-2
 //http://localhost:3000/user/12212121/pesado/9999999/@chinesl/roraima
+
