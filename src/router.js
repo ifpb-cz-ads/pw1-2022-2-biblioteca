@@ -8,25 +8,8 @@ router.get('/api/buscaLivro',livroController.busca);
 
 router.get('/api/buscaTexto',livroController.buscaTexto);
 
+router.post('/api/criarLivro',livroController.criarLivro);
 
-
-// router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
-
-//     const novoLivro = new Livro({
-//         ISBN: req.params.nome,
-//         title: req.params.titulo,
-//         autor: req.params.autor,
-//         ano: new Date(req.params.anoLancamento)
-//       });
-      
-//       novoLivro.save((err, result) => {
-//         if (err) {
-//           res.status(400).send(err);
-//         } else {
-//           res.status(200).json({menssagem:result});
-//         }
-//       });
-// });
 
 // router.get('/user/:matricula/:categoria/:telefone/:email/:estado',(req,res)=>{
 

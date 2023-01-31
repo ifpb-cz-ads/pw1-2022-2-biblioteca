@@ -36,4 +36,24 @@ async function buscaTexto(req,res){
 
 }
 
-module.exports = {busca , buscaTexto}; 
+async function criarLivro(req,res){
+
+    const novoLivro = new Livro({
+        ISBN: req.query.isbm,
+        title: req.query.titulo,
+        autor: req.query.autor,
+        ano: new Date(req.query.anoLancamento)
+      });
+      
+    novoLivro.save((err, result) => {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.status(200).json({menssagem:result});
+        }
+    });
+
+}
+
+
+module.exports = {busca , buscaTexto,criarLivro}; 
