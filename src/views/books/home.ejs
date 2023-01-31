@@ -1,0 +1,26 @@
+<div class="layout">
+<% books.forEach(function(book) { %>
+	<div class="book border">
+		<div class="upper-half">
+			<img src="<%= book.imagem %>" class="img-fluid img-thumbnail">
+			<div class="informacao">
+				<h3 class="item"><%= book.titulo %></h3>
+				<h3 class="item"><%= book.autor %></h3>
+				<h3 class="item"><%= book.data %></h3>
+				<h3 class="item"><%= book.paginas %></h3>
+
+				<div class="buttons">
+					<a class="btn btn-primary">Ver completo</a>
+					<a class="btn btn-primary">Empréstimo</a>
+				</div>
+			</div>
+		</div>
+
+		<div class= "bottom-half">
+			<div class="sinopse">
+				<p><%= book.sinopse %></p>
+			</div>
+		</div>
+	</div>
+<% }); %>
+</div>

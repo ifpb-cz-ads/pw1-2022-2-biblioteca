@@ -1,0 +1,74 @@
+/* Padrões */
+
+.center {
+	margin: 5% 10%;
+}
+
+header h1{
+	text-align: center;
+	font-size: 64px;
+}
+
+/* Layout da página inicial */
+
+.layout {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	margin: 2% 5%;
+}
+
+/* CSS dos itens */
+.book {
+	display: flex;
+	flex-direction: column;
+	margin: 1%;
+	height: 400px;
+}
+
+.upper-half {
+	display: flex;
+	flex-direction row;
+	height: 50%;
+}
+
+.informacao {
+	width: 50%;
+	height: 100%;
+	padding: 2%;
+}
+
+.item {
+	font-size: 100%;
+	width: 100%;
+}
+
+.buttons {
+	height: 10%;
+}
+
+.bottom-half {
+	width: 100%;
+	height: 50%;
+}
+
+.sinopse {
+	margin: 2%;
+}
+
+.sinopse p {
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Layout página do livro */
+
+.specific-book {
+	margin: 5% 10%;
+}
+
+.bottom-half div {
+	margin: 1%;
+}
