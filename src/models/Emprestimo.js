@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
+const Usuario = require('./Usuario');
 const Livro = require('./Livro');
-const Usuario = require('./usuario');
 const Schema = mongoose.Schema;
 
 const EmprestimoSchema = new Schema({
     dataEmprestimo: Date,
     dataEntrega: Date,
-    livro: { type: Livro.LivroSchema, required: true },
-    usuario: { type: Usuario.UsuarioSchema, required: true },
+    livro: Livro,
+    usuario: Usuario,
     diasDesdeUltimoEmprestimo: Number
 });
 
