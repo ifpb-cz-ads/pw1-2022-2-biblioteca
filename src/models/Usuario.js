@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
 const UsuarioSchema = new Schema({
     matricula: String,
@@ -7,8 +8,10 @@ const UsuarioSchema = new Schema({
     nome: String,
     telefone: String,
     email: String,
-    estado: String
+    estado: String,
+    senha: String
   });
+
 
 const Usuario = mongoose.model('Usuario', UsuarioSchema);
 

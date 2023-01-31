@@ -5,11 +5,12 @@ const LivroSchema = new Schema({
     ISBN: String,
     title: String,
     autor: String,
-    ano: Number
+    ano: Number,
 });
+
+LivroSchema.index({ title: 'text', autor: 'text' }, { weights: { title: 2, content: 1 } });
 
 const Livro = mongoose.model('Livro', LivroSchema);
 
 
 module.exports = Livro;
-    

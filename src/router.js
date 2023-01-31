@@ -1,71 +1,75 @@
 const express = require('express');
 const router = express.Router();
-const Livro = require('./models/Livro');
-const Usuario = require('./models/Usuario');
-const Emprestimo = require('./models/Emprestimo');
-const Emprestimo = require('./models/Emprestimo');
+const bcrypt = require('bcrypt');
+const livroController = require('./controllers/livroController');
 
 
-router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
+router.get('/api/buscaLivro',livroController.busca);
 
-    const novoLivro = new Livro({
-        ISBN: req.params.nome,
-        title: req.params.titulo,
-        autor: req.params.autor,
-        ano: new Date(req.params.anoLancamento)
-      });
+router.get('/api/buscaTexto',livroController.buscaTexto);
+
+
+
+// router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
+
+//     const novoLivro = new Livro({
+//         ISBN: req.params.nome,
+//         title: req.params.titulo,
+//         autor: req.params.autor,
+//         ano: new Date(req.params.anoLancamento)
+//       });
       
-      novoLivro.save((err, result) => {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.status(200).json({menssagem:result});
-        }
-      });
-});
+//       novoLivro.save((err, result) => {
+//         if (err) {
+//           res.status(400).send(err);
+//         } else {
+//           res.status(200).json({menssagem:result});
+//         }
+//       });
+// });
 
-router.get('/user/:matricula/:categoria/:telefone/:email/:estado',(req,res)=>{
+// router.get('/user/:matricula/:categoria/:telefone/:email/:estado',(req,res)=>{
 
-    const novoUsuario = new Usuario({
-        matricula: req.params.matricula,
-        categoria: req.params.categoria,
-        telefone: req.params.telefone,
-        email: req.params.email,
-        estado: req.params.estado
-      });
+//     const novoUsuario = new Usuario({
+//         matricula: req.params.matricula,
+//         categoria: req.params.categoria,
+//         telefone: req.params.telefone,
+//         email: req.params.email,
+//         estado: req.params.estado
+//       });
       
-      novoUsuario.save((err, result) => {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.status(200).json({mensagem:result});
-        }
-      });
-});
+//       novoUsuario.save((err, result) => {
+//         if (err) {
+//           res.status(400).send(err);
+//         } else {
+//           res.status(200).json({mensagem:result});
+//         }
+//       });
+// });
 
-router.get('/acharUsuario',(req,res)=>{
-    Usuario.find({})
-    .exec()
-    .then(usuarios => {
-      res.status(200).send(JSON.stringify(usuarios));
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
-})
+// router.get('/acharUsuario',(req,res)=>{
+//     Usuario.find({})
+//     .exec()
+//     .then(usuarios => {
+//       res.status(200).send(JSON.stringify(usuarios));
+//     })
+//     .catch(err => {
+//       res.status(500).send(err);
+//     });
+// })
 
-router.get('/acharLivro',(req,res)=>{
-    Livro.find({})
-    .exec()
-    .then(livros => {
-      res.status(200).send(JSON.stringify(livros));
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
-})
+// router.get('/acharLivro',(req,res)=>{
+//     Livro.find({})
+//     .exec()
+//     .then(livros => {
+//       res.status(200).send(JSON.stringify(livros));
+//     })
+//     .catch(err => {
+//       res.status(500).send(err);
+//     });
+// })
 
-//criar emprestimo
+// //criar emprestimo
 // router.get('/teste/:id/:user/:dtEmp/:dtEntre/:dias',async(req,res)=>{
 //   const id2 = await Livro.findById(req.params.id);
 //   console.log(id2);
@@ -92,6 +96,11 @@ router.get('/acharLivro',(req,res)=>{
 
 // })
 
+// router.get('/testeSenha/:senha',async (req,res)=>{
+
+//   const senha =  await bcrypt.hash(req.params.senha, 10);
+//   res.send(senha);
+// });
 
 
 

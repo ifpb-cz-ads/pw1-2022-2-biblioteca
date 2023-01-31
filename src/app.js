@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const router = require('./router')
-
-require('dotenv').config();
 const { default: mongoose } = require("mongoose");
+const path = require('path');
+
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
@@ -12,7 +14,14 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
     console.log(e);
 });
 
+
+//as rotas do diretorio Routers:
 app.use(router);
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 
 
