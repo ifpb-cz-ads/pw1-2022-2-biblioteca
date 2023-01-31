@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Livro = require('./models/Livro');
 const Usuario = require('./models/Usuario');
-const Emprestimo = require('./models/Emprestimo');
+//const Emprestimo = require('./models/Emprestimo');
 
 
 router.get('/', (req, res)=>{
