@@ -1,0 +1,45 @@
+/* Layout da página inicial */
+
+.layout {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	margin: 2% 5%;
+}
+
+/* CSS dos itens */
+.book {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: 50% 50%;
+	border: 1px solid #000000;
+	margin: 1%;
+}
+
+.upper-half {
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+.upper-half img {
+	max-width: 100%;
+}
+
+.item {
+	font-size: 100%;
+	width: 100%;
+}
+
+.bottom-half {
+	
+}
+
+.buttons {
+	height: 10%;
+}
+
+.sinopse {
+	overflow: hidden;
+	height: 90%;
+	text-overflow: ellipsis;
+}
+
