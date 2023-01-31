@@ -8,19 +8,27 @@
 
 /* CSS dos itens */
 .book {
-	display: grid;
-	grid-template-columns: auto;
-	grid-template-rows: 50% 50%;
+	display: flex;
+	flex-direction: column;
+	background-color: gray;
 	margin: 1%;
+	border: 1px solid #000000;
 }
 
 .upper-half {
-	display: grid;
-	grid-template-columns: 50% 50%;
+	display: flex;
+	flex-direction row;
+	height: 50%;
 }
 
 .upper-half img {
-	max-width: 100%;
+	width: 50%;
+	height: 100%;
+}
+
+.information {
+	width: 50%;
+	height: 100%;
 }
 
 .item {
@@ -28,17 +36,23 @@
 	width: 100%;
 }
 
-.bottom-half {
-	
-}
-
 .buttons {
 	height: 10%;
 }
 
-.sinopse {
-	overflow: hidden;
-	height: 90%;
-	text-overflow: ellipsis;
+.bottom-half {
+	width: 100%;
+	height: 50%;
 }
 
+.sinopse {
+	margin: 2%;
+}
+
+.sinopse p {
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
