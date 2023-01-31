@@ -20,7 +20,6 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 const rotas = require('./Routers/rotas');
 const api = require('./Routers/api');
 
-const app = express();
 
 app.use(rotas);
 app.use('/api', api);
