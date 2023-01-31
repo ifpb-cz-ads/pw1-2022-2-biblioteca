@@ -51,3 +51,13 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* Layout página do livro */
+
+.specific-book {
+	margin: 5% 10%;
+}
+
+.bottom-half div {
+	margin: 1%;
+}
