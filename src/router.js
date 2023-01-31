@@ -5,6 +5,10 @@ const Usuario = require('./models/Usuario');
 const Emprestimo = require('./models/Emprestimo');
 
 
+router.get('/', (req, res)=>{
+  res.send("Rota funcionando")
+})
+
 router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
 
     const novoLivro = new Livro({
