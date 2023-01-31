@@ -4,5 +4,4 @@ api.get('/teste', (req, res) => {
     res.send('Mensagem');
 });
 
-
 module.exports = api;
