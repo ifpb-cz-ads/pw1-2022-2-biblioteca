@@ -1,62 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
 const livroController = require('./controllers/livroController');
+const usuarioController = require('./controllers/userController');
+const Usuario = require('./models/Usuario');
+
 
 
 router.get('/api/buscaLivro',livroController.busca);
 
 router.get('/api/buscaTexto',livroController.buscaTexto);
 
+router.post('/api/criarLivro',livroController.criarLivro);
+
+router.post('/api/cadastro',usuarioController.cadastrarUsuario);
 
 
-// router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
-
-//     const novoLivro = new Livro({
-//         ISBN: req.params.nome,
-//         title: req.params.titulo,
-//         autor: req.params.autor,
-//         ano: new Date(req.params.anoLancamento)
-//       });
-      
-//       novoLivro.save((err, result) => {
-//         if (err) {
-//           res.status(400).send(err);
-//         } else {
-//           res.status(200).json({menssagem:result});
-//         }
-//       });
-// });
-
-// router.get('/user/:matricula/:categoria/:telefone/:email/:estado',(req,res)=>{
-
-//     const novoUsuario = new Usuario({
-//         matricula: req.params.matricula,
-//         categoria: req.params.categoria,
-//         telefone: req.params.telefone,
-//         email: req.params.email,
-//         estado: req.params.estado
-//       });
-      
-//       novoUsuario.save((err, result) => {
-//         if (err) {
-//           res.status(400).send(err);
-//         } else {
-//           res.status(200).json({mensagem:result});
-//         }
-//       });
-// });
-
-// router.get('/acharUsuario',(req,res)=>{
-//     Usuario.find({})
-//     .exec()
-//     .then(usuarios => {
-//       res.status(200).send(JSON.stringify(usuarios));
-//     })
-//     .catch(err => {
-//       res.status(500).send(err);
-//     });
-// })
+router.get('/acharUsuario',(req,res)=>{
+    Usuario.find({})
+    .exec()
+    .then(usuarios => {
+      res.status(200).send(JSON.stringify(usuarios));
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+})
 
 // router.get('/acharLivro',(req,res)=>{
 //     Livro.find({})
