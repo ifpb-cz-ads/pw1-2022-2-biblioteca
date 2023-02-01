@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Livro = require('./models/Livro');
+const livroController = require('./controllers/livroController');
+const usuarioController = require('./controllers/userController');
 const Usuario = require('./models/Usuario');
-const loginController = require('./controllers/loginController.js')
-//const Emprestimo = require('./models/Emprestimo');
+
 
 
 router.get('/', (req, res)=>{
@@ -12,23 +12,21 @@ router.get('/', (req, res)=>{
 
 router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
 
-    const novoLivro = new Livro({
-        ISBN: req.params.nome,
-        title: req.params.titulo,
-        autor: req.params.autor,
-        ano: new Date(req.params.anoLancamento)
-      });
-      
-      novoLivro.save((err, result) => {
-        if (err) {
-          res.status(400).send(err);
-        } else {
-          res.status(200).json({menssagem:result});
-        }
-      });
-});
+router.post('/api/criarLivro',livroController.criarLivro);
 
-router.get('/user/:matricula/:categoria/:telefone/:email/:estado',(req,res)=>{
+router.post('/api/cadastro',usuarioController.cadastrarUsuario);
+
+
+router.get('/acharUsuario',(req,res)=>{
+    Usuario.find({})
+    .exec()
+    .then(usuarios => {
+      res.status(200).send(JSON.stringify(usuarios));
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+})
 
     const novoUsuario = new Usuario({
         matricula: req.params.matricula,
