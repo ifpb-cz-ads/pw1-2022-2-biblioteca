@@ -5,7 +5,6 @@ const path = require('path');
 const app = express();
 const router = require('./router')
 const { default: mongoose } = require("mongoose");
-const path = require('path');
 
 
 mongoose.set('strictQuery', false);
@@ -17,7 +16,7 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 
 
 //as rotas do diretorio Routers:
-const rotas = require('./Routers/rotas');
+const rotas = require('./router');
 const api = require('./Routers/api');
 
 
@@ -28,4 +27,4 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'))
 
 
-app.listen(process.env.PORT || 3000, ()=> console.log("Aplicacao rodando"));
+app.listen(process.env.PORT || 3000, ()=> console.log("Aplicacao rodando http://localhost:3000"));

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Livro = require('./models/Livro');
 const Usuario = require('./models/Usuario');
+const loginController = require('./controllers/loginController.js')
 //const Emprestimo = require('./models/Emprestimo');
 
 
@@ -67,6 +68,13 @@ router.get('/acharLivro',(req,res)=>{
       res.status(500).send(err);
     });
 })
+
+router.get("/login/index", loginController.index)
+
+//AREA DE LOGIN 
+
+
+
 
 
 
