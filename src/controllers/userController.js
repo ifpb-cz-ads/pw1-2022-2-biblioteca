@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 async function cadastrarUsuario(req,res){
   
     const { nome, email, senha, confirmarSenha} = req.body;
+    console.log(req.body);
 
 //matricula, categoria, telefone
 
@@ -97,6 +98,7 @@ async function logarUsuario(req, res){
     } catch (error) {
         console.log(error);
     }
+
 }
 
 module.exports = {cadastrarUsuario, logarUsuario};

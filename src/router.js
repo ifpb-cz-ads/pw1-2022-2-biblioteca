@@ -85,9 +85,14 @@ router.get('/acharLivro',(req,res)=>{
 
 //AREA DE LOGIN 
 
-router.get('/login', (req, res)=>{
-  res.send('Rota login/register funcionando')
+router.get('/api/criarRegistro', (req, res)=>{
+  res.render('signIn')
 })
+
+router.get('/api/logar', (req, res)=>{
+  res.render('login')
+})
+
 
 router.post('/login/register', usuarioController.cadastrarUsuario)
 

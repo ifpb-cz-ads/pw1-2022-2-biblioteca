@@ -6,7 +6,7 @@ const router = require('./router')
 const { default: mongoose } = require("mongoose");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const checkTK = require('./middlewares/middleware')
+//const checkTK = require('./middlewares/middleware')
 
 
 
@@ -23,11 +23,11 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 //as rotas do diretorio Routers:
 const rotas = require('./router');
 const api = require('./Routers/api');
-const { checkToken } = require('./middlewares/middleware');
+//const { checkToken } = require('./middlewares/middleware');
 
 app.use(express.json())
-
-//app.use(checkToken())
+app.use(express.urlencoded({extended:true}));
+//app.use(checkTK())
 
 app.use(rotas);
 app.use('/api', api);
