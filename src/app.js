@@ -16,13 +16,12 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 
 
 //as rotas do diretorio Routers:
-app.use(router);
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-
+app.use(express.urlencoded({extended: true }));
+app.use(router);
 
 
 app.on("pronto",()=>{

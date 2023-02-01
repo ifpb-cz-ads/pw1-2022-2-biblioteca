@@ -26,6 +26,14 @@ router.get('/acharUsuario',(req,res)=>{
     });
 })
 
+// Rota frontend
+router.get('/livros', livroController.index);
+
+
+
+
+
+
 // router.get('/acharLivro',(req,res)=>{
 //     Livro.find({})
 //     .exec()
