@@ -10,6 +10,22 @@ router.get('/', (req, res)=>{
   res.send("Rota funcionando")
 })
 
+//ROTA PRIVATA PARA USUARIOS LOGADOS
+router.get('/user/:id', async(req, res)=>{
+  const id = req.params.id
+
+  //checkando usuários
+  const user = await Usuario.findById(id, '-senha')
+
+  if(!user){
+    return res.status(404).json({msg: 'Usuário não encontrado'})
+  }else{
+    return res.status(200).json(user)
+  }
+
+})
+
+
 router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
 
 router.post('/api/criarLivro',livroController.criarLivro);
@@ -67,10 +83,15 @@ router.get('/acharLivro',(req,res)=>{
     });
 })
 
-router.get("/login/index", loginController.index)
-
 //AREA DE LOGIN 
 
+router.get('/login', (req, res)=>{
+  res.send('Rota login/register funcionando')
+})
+
+router.post('/login/register', usuarioController.cadastrarUsuario)
+
+router.post('/login/login', usuarioController.logarUsuario)
 
 
 
