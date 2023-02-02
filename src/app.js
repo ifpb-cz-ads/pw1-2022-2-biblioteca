@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-const { middlewareGlobal, loginReq } = require('./middlewares/middleware');
+const { middlewareGlobal } = require('./middlewares/middleware');
 
 
 
@@ -24,7 +24,7 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 
 //Sessions 
 const sessionOptions = session({
-    secret: `testando123`,
+    secret: `adhjh12jk3h123812738dhajshdjkashdh`,
     store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
     resave: true,
     saveUninitialized: true,
@@ -41,9 +41,7 @@ const rotas = require('./router');
 const api = require('./Routers/api');
 
 
-//app.use(check)
 app.use(middlewareGlobal);
-app.use(loginReq);
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
