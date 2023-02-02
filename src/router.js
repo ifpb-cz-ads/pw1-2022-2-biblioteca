@@ -3,6 +3,7 @@ const router = express.Router();
 const livroController = require('./controllers/livroController');
 const usuarioController = require('./controllers/userController');
 const Usuario = require('./models/Usuario');
+const { loginReq } = require('./middlewares/middleware');
 
 
 
@@ -19,9 +20,8 @@ router.get('/api/book-page', (req, res)=>{
   res.render('book-page')
 })
 
-router.post('/api/criarLivro',livroController.criarLivro);
+router.post('/api/criarLivro', loginReq, livroController.criarLivro);
 
-router.post('/api/cadastro',usuarioController.cadastrarUsuario);
 
 
 //AREA DE LOGIN ///////////
@@ -47,7 +47,7 @@ router.get('/user/:id', async(req, res)=>{
 
   //checkando usuários
   const user = await Usuario.findById(id, '-senha')
-
+  console.log(user)
   if(!user){
     return res.status(404).json({msg: 'Usuário não encontrado'})
   }else{
