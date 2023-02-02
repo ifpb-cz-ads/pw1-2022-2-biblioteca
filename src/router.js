@@ -22,7 +22,11 @@ router.get('/api/book-page', (req, res)=>{
 
 router.post('/api/criarLivro',livroController.criarLivro);
 
-router.post('/api/cadastro',usuarioController.cadastrarUsuario);
+router.get('/api/buscarLivro',livroController.busca);
+
+router.get('/api/buscaTexto',livroController.buscaTexto)
+
+router.post('/api/gerarEmprestimo',emprestimoController.criarEmprestimo);
 
 
 //AREA DE LOGIN ///////////
@@ -61,6 +65,3 @@ router.get('/user/:id', async(req, res)=>{
 
 
 module.exports = router;
-
-//http://localhost:3000/micachan/melinda/sarauiva/1999-10-2
-//http://localhost:3000/user/12212121/pesado/9999999/@chinesl/roraima
