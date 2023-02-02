@@ -4,6 +4,7 @@ const livroController = require('./controllers/livroController');
 const usuarioController = require('./controllers/userController');
 const emprestimoController = require('./controllers/emprestimoController');
 const Usuario = require('./models/Usuario');
+const { application } = require('express');
 
 
 
@@ -44,7 +45,10 @@ router.post('/login/register', usuarioController.cadastrarUsuario)
 
 router.post('/login/login', usuarioController.logarUsuario)
 
-router.get('/api/logout', usuarioController.logoutUsuario)
+router.get('/api/logout', usuarioController.logoutUsuario);
+
+//n use
+router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
 
 
 router.get('/user/:id', async(req, res)=>{

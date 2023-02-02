@@ -26,4 +26,16 @@ async function criarEmprestimo(req,res){
     }
 }
 
-module.exports={criarEmprestimo};
+async function deleteAllEmprestimos(req,res){
+    try {
+      await Emprestimo.deleteMany({});
+      console.log("Todos os empréstimos foram deletados com sucesso");
+    } catch (err) {
+      console.error(err);
+    }
+
+    res.send("Ok");
+  };
+  
+
+module.exports={criarEmprestimo,deleteAllEmprestimos};

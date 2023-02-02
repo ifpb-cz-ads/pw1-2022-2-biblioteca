@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
 const { middlewareGlobal } = require('./middlewares/middleware');
+const {contador} = require('./controllers/contador');
 
 
 
@@ -46,6 +47,8 @@ app.use(middlewareGlobal);
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 
+//contador diario
+// contador.start();
 
 app.use(rotas);
 app.use('/api', api);
