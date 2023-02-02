@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
 const app = express();
 const router = require('./router')
 const { default: mongoose } = require("mongoose");
@@ -35,28 +34,22 @@ const sessionOptions = session({
       }
 });
 
-app.use(sessionOptions);
-
-//as rotas do diretorio Routers:
-const rotas = require('./router');
-const api = require('./Routers/api');
-
-
-app.use(middlewareGlobal);
-
-app.use(express.json())
-app.use(express.urlencoded({extended:true}));
-
 //contador diario
 // contador.start();
 
-app.use(rotas);
-app.use('/api', api);
+app.use(sessionOptions);
+app.use(middlewareGlobal);
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'))
+app.set('views', path.join(__dirname, '/views'));
+app.use(express.json());
+app.use(express.urlencoded({extended: true }));
+app.use(router);
 
 
-app.listen(process.env.PORT || 3000, ()=> console.log("Aplicacao rodando http://localhost:3000"));
-
-//obs mudar o listen depois
+app.on("pronto",()=>{
+    app.listen(process.env.PORT,()=>{
+        console.log("Acessar http://localhost:3000")
+        console.log(`Servidor execultando na porta 3000`);
+    });
+})

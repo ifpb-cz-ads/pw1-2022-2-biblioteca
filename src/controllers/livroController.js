@@ -37,6 +37,7 @@ async function buscaTexto(req,res){
 }
 
 async function criarLivro(req,res){
+		const {titulo, autor, anoLancamento, isbn} = req.body;
 
     const {isbn, titulo,autor ,ano} = req.body;
 
@@ -44,7 +45,7 @@ async function criarLivro(req,res){
         ISBN: isbn,
         title: titulo,
         autor: autor,
-        ano: new Date(ano)
+        ano: new Date(anoLancamento)
       });
       
     novoLivro.save((err, result) => {
@@ -57,5 +58,17 @@ async function criarLivro(req,res){
 
 }
 
+// Frontend
+	// Página inicial / livros (?)
+	async function index(req, res){
+		try{
+			const books = await Livro.find({});
+			console.log(books);
+			res.render('index', {books});
+		} catch(err){
+			console.log(err);
+			res.status(404).send('Não foi possível encontrar os livros!');
+		}
+	}
 
-module.exports = {busca , buscaTexto,criarLivro}; 
+module.exports = {busca , buscaTexto, criarLivro, index}; 

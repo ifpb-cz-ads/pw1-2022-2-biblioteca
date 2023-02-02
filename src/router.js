@@ -36,6 +36,24 @@ router.get('/api/criarRegistro', (req, res)=>{
   res.render('signIn')
 })
 
+// Rota frontend
+router.get('/livros', livroController.index);
+
+
+
+
+
+
+// router.get('/acharLivro',(req,res)=>{
+//     Livro.find({})
+//     .exec()
+//     .then(livros => {
+//       res.status(200).send(JSON.stringify(livros));
+//     })
+//     .catch(err => {
+//       res.status(500).send(err);
+//     });
+// })
 router.get('/api/logar', (req, res)=>{
   console.log('teste session email:', req.session)
   res.render('login')
