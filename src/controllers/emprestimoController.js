@@ -5,14 +5,14 @@ const Usuario = require('../models/Usuario');
 
 async function criarEmprestimo(req,res){
 
-    // const {ISBM, email} = req.body;
-    const ISBM = "micachan";
+    // const {ISBN, email} = req.body;
+    const ISBN = "micachan";
     const email = req.session.email;
 
     const novoEmprestimo = new Emprestimo({
         dataEmprestimo: new Date(),
         dataEntrega: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        livro: [ISBM],
+        livro: [ISBN],
         usuario: [email],
         diasDesdeUltimoEmprestimo: 0
     });

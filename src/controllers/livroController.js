@@ -38,11 +38,13 @@ async function buscaTexto(req,res){
 
 async function criarLivro(req,res){
 
+    const {isbn, titulo,autor ,ano} = req.body;
+
     const novoLivro = new Livro({
-        ISBN: req.query.isbm,
-        title: req.query.titulo,
-        autor: req.query.autor,
-        ano: new Date(req.query.anoLancamento)
+        ISBN: isbn,
+        title: titulo,
+        autor: autor,
+        ano: new Date(ano)
       });
       
     novoLivro.save((err, result) => {
