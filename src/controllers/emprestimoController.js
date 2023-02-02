@@ -5,7 +5,7 @@ const Usuario = require('../models/Usuario');
 
 async function criarEmprestimo(req,res){
 
-    const {ISBM, email} = req.body;
+    const {ISBM, email} = req.body; 
 
     const novoEmprestimo = new Emprestimo({
         dataEmprestimo: new Date(),
