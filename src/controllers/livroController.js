@@ -39,8 +39,6 @@ async function buscaTexto(req,res){
 async function criarLivro(req,res){
 		const {titulo, autor, anoLancamento, isbn} = req.body;
 
-    const {isbn, titulo,autor ,ano} = req.body;
-
     const novoLivro = new Livro({
         ISBN: isbn,
         title: titulo,

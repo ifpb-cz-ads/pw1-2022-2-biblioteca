@@ -35,7 +35,20 @@ async function deleteAllEmprestimos(req,res){
     }
 
     res.send("Ok");
-  };
+};
+
+async function todosEmprestimos(req,res){
+
+  try{
+    const emprestimo = await Emprestimo.find({});
+    res.json(emprestimo );
+}
+catch(e){
+    console.log(e);
+    res.status(404).send(`Não foi possivel encontrar sua busca`);
+}
+
+}
   
 
-module.exports={criarEmprestimo,deleteAllEmprestimos};
+module.exports={criarEmprestimo,deleteAllEmprestimos,todosEmprestimos};
