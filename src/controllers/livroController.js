@@ -39,8 +39,6 @@ async function buscaTexto(req,res){
 async function criarLivro(req,res){
 		const {titulo, autor, anoLancamento, isbn} = req.body;
 
-    const {isbn, titulo,autor ,ano} = req.body;
-
     const novoLivro = new Livro({
         ISBN: isbn,
         title: titulo,
@@ -62,8 +60,11 @@ async function criarLivro(req,res){
 	// Página inicial / livros (?)
 	async function index(req, res){
 		try{
-			const books = await Livro.find({});
-			console.log(books);
+//			const books = await Livro.find({});
+//			console.log(books);
+			const books = [
+				{title: 'Teste', autor: 'Robson', ano: 2023}
+			]
 			res.render('index', {books});
 		} catch(err){
 			console.log(err);
