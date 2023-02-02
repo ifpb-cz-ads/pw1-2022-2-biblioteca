@@ -5,8 +5,12 @@ const Schema = mongoose.Schema;
 const EmprestimoSchema = new Schema({
     dataEmprestimo: Date,
     dataEntrega: Date,
-    livroId: String,
-    usuarioId: String,
+    livro:[
+        {type: Schema.Types.String, ref: "Livro"}
+    ],
+    usuario:[
+        {type: Schema.Types.String,ref: "Usuario"}
+    ],
     diasDesdeUltimoEmprestimo: Number
 });
 
