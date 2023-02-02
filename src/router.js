@@ -2,28 +2,38 @@ const express = require('express');
 const router = express.Router();
 const livroController = require('./controllers/livroController');
 const usuarioController = require('./controllers/userController');
+const emprestimoController = require('./controllers/emprestimoController');
 const Usuario = require('./models/Usuario');
+const { application } = require('express');
 
 
 
-router.get('/api/buscaLivro',livroController.busca);
 
-router.get('/api/buscaTexto',livroController.buscaTexto);
+router.get('/', (req, res)=>{
+  res.redirect('/api/index')
+})
+
+router.get('/api/index', (req, res)=>{
+  res.render('index')
+})
+
+router.get('/api/book-page', (req, res)=>{
+  res.render('book-page')
+})
 
 router.post('/api/criarLivro',livroController.criarLivro);
 
-router.post('/api/cadastro',usuarioController.cadastrarUsuario);
+router.get('/api/buscarLivro',livroController.busca);
+
+router.get('/api/buscaTexto',livroController.buscaTexto)
+
+router.post('/api/gerarEmprestimo',emprestimoController.criarEmprestimo);
 
 
-router.get('/acharUsuario',(req,res)=>{
-    Usuario.find({})
-    .exec()
-    .then(usuarios => {
-      res.status(200).send(JSON.stringify(usuarios));
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
+//AREA DE LOGIN ///////////
+
+router.get('/api/criarRegistro', (req, res)=>{
+  res.render('signIn')
 })
 
 // Rota frontend
@@ -44,45 +54,36 @@ router.get('/livros', livroController.index);
 //       res.status(500).send(err);
 //     });
 // })
+router.get('/api/logar', (req, res)=>{
+  console.log('teste session email:', req.session)
+  res.render('login')
+})
 
-// //criar emprestimo
-// router.get('/teste/:id/:user/:dtEmp/:dtEntre/:dias',async(req,res)=>{
-//   const id2 = await Livro.findById(req.params.id);
-//   console.log(id2);
-  
-//   const idUser = await Usuario.findById(req.params.user);
-//   console.log(idUser);
+router.post('/login/register', usuarioController.cadastrarUsuario)
 
-//   const novoEmprestimo = new Emprestimo({
-//     dataEmprestimo: new Date(req.params.dtEmp),
-//     dataEntrega: new Date(req.params.dtEntre),
-//     livroId: id2,
-//     usuarioId: idUser,
-//     diasDesdeUltimoEmprestimo: req.params.dias
-//   });
-  
-//   novoEmprestimo.save((err, result) => {
-//     if (err) {
-//       res.status(400).send(err);
-//     } else {
-//       // res.status(200).json({mensagem:result});
-//       res.status(200).send(JSON.stringify(result));
-//     }
-//   });
+router.post('/login/login', usuarioController.logarUsuario)
 
-// })
+router.get('/api/logout', usuarioController.logoutUsuario);
 
-// router.get('/testeSenha/:senha',async (req,res)=>{
+//n use
+router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
 
-//   const senha =  await bcrypt.hash(req.params.senha, 10);
-//   res.send(senha);
-// });
+
+router.get('/user/:id', async(req, res)=>{
+  const id = req.params.id
+
+  //checkando usuários
+  const user = await Usuario.findById(id, '-senha')
+
+  if(!user){
+    return res.status(404).json({msg: 'Usuário não encontrado'})
+  }else{
+    return res.status(200).json(user)
+  }
+
+})
 
 
 
 
 module.exports = router;
-
-//http://localhost:3000/micachan/melinda/sarauiva/1999-10-2
-//http://localhost:3000/user/12212121/pesado/9999999/@chinesl/roraima
-

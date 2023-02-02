@@ -1,15 +1,19 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-
+const jwt = require('jsonwebtoken');
+const session = require('express-session')
+const { loginReq } = require('../middlewares/middleware');
 
 async function cadastrarUsuario(req,res){
   
-    const {matricula, categoria ,nome, telefone, email, senha, confirmarSenha} = req.query;
+    const { nome, email, senha, confirmarSenha} = req.body;
+    console.log(req.body);
 
-    if(!matricula){
+//matricula, categoria, telefone
+
+    /*if(!matricula){
         return res.status(422).json({msg: "A matricula é obrigatoria"});
-    }
+    }*/
 
     if(!nome){
         return res.status(422).json({msg: "O nome é obrigatorio"});
@@ -41,22 +45,74 @@ async function cadastrarUsuario(req,res){
     const password = await  bcrypt.hash(senha, saltos);
 
     const novoUsuario = new Usuario({
-        matricula: matricula,
-        categoria: categoria,
+        /*matricula: matricula,
+        categoria: categoria,*/
         nome: nome,
-        telefone: telefone,
+        //telefone: telefone,
         email: email,
-        estado: "ok",
+        //estado: "ok",
         senha: password
     });
 
     try{
         await novoUsuario.save();
-        res.status(200).json({msg:"Usuario criado com sucesso"});
+        
     }
     catch(e){
         console.log(e);
     }
+    res.redirect('/')
 }
 
-module.exports = {cadastrarUsuario};
+async function logarUsuario(req, res){
+    const {email, senha} = req.body
+
+    if(!email){
+        return res.status(422).json({msg: "O email é obrigatorio"});
+    }
+
+    if(!senha){
+        return res.status(422).json({msg: "A senha é obrigatoria"});
+    }
+
+    //Checkando se o usuário está cadastrado
+    const user = await Usuario.findOne({email:email});
+
+    if(!user){
+        return res.status(404).json({msg:"Usuário não encontrado"});
+    }
+
+    //Checkando se a senha está correta
+    const checkPassword = await bcrypt.compare(senha, user.senha)
+    if(!checkPassword){
+        return res.status(422).json({msg: 'Senha inválida'})
+    }
+    
+    if(req.body.senha == senha && req.body.email == email){
+        //logado
+        req.session.email = email;
+        req.session.senha = senha;
+    }
+
+    try {
+        const secret = `${process.env.SECRET}`
+        const token = jwt.sign(
+            {
+            id: user._id,
+            },
+            secret,
+        )
+        res.redirect('/')
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+async function logoutUsuario(req, res){
+    req.session.destroy();
+    res.redirect('/')
+}
+
+module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario};
