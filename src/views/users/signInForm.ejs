@@ -3,16 +3,21 @@
 		<h1>Crie sua conta</h1>
 		<form action="/login/register" method="POST">
 			<div class="form-group mt-3" >
+				<input type="hidden" name="" id="">
+				<label for="inputEmail">Nome:</label>
+				<input type="text" class="form-control" id="inputNome" aria-describedby="emailHelp" placeholder="Enter email" name="nome">
+			</div>
+			<div class="form-group mt-3" >
 				<label for="inputEmail">Email</label>
 				<input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email">
 			</div>
 			<div class="form-group mt-3">
 				<label for="inputPassword">Senha</label>
-				<input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
+				<input type="password" class="form-control" id="inputPassword" placeholder="Password" name="senha">
 			</div>
 			<div class="form-group mt-3">
 				<label for="confirmPassword">Confirme sua senha</label>
-				<input type="password" class="form-control" id="confirmPassword" placeholder="Password" name="confirmPassword">
+				<input type="password" class="form-control" id="confirmPassword" placeholder="Password" name="confirmarSenha">
 			</div><br>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">Criar Conta</button>

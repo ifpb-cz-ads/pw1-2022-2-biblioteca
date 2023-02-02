@@ -20,6 +20,8 @@
   "homepage": "https://github.com/ifpb-cz-ads/pw1-2022-2-biblioteca#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "csrf": "^3.1.0",

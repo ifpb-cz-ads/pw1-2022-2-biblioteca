@@ -1,11 +1,13 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const session = require('express-session')
+const { loginReq } = require('../middlewares/middleware');
 
 async function cadastrarUsuario(req,res){
   
     const { nome, email, senha, confirmarSenha} = req.body;
+    console.log(req.body);
 
 //matricula, categoria, telefone
 
@@ -54,11 +56,12 @@ async function cadastrarUsuario(req,res){
 
     try{
         await novoUsuario.save();
-        res.status(200).json({msg:"Usuario criado com sucesso"});
+        
     }
     catch(e){
         console.log(e);
     }
+    res.redirect('/')
 }
 
 async function logarUsuario(req, res){
@@ -84,6 +87,12 @@ async function logarUsuario(req, res){
     if(!checkPassword){
         return res.status(422).json({msg: 'Senha inválida'})
     }
+    
+    if(req.body.senha == senha && req.body.email == email){
+        //logado
+        req.session.email = email;
+        req.session.senha = senha;
+    }
 
     try {
         const secret = `${process.env.SECRET}`
@@ -93,10 +102,17 @@ async function logarUsuario(req, res){
             },
             secret,
         )
-        res.status(200).json({msg: 'Autenticado com sucesso', token })
+        res.redirect('/')
     } catch (error) {
         console.log(error);
     }
+
 }
 
-module.exports = {cadastrarUsuario, logarUsuario};
+
+async function logoutUsuario(req, res){
+    req.session.destroy();
+    res.redirect('/')
+}
+
+module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario};

@@ -7,11 +7,42 @@ const Usuario = require('./models/Usuario');
 
 
 
+
 router.get('/', (req, res)=>{
-  res.send("Rota funcionando");
+  res.redirect('/api/index')
 })
 
-//ROTA PRIVATA PARA USUARIOS LOGADOS
+router.get('/api/index', (req, res)=>{
+  res.render('index')
+})
+
+router.get('/api/book-page', (req, res)=>{
+  res.render('book-page')
+})
+
+router.post('/api/criarLivro',livroController.criarLivro);
+
+router.post('/api/cadastro',usuarioController.cadastrarUsuario);
+
+
+//AREA DE LOGIN ///////////
+
+router.get('/api/criarRegistro', (req, res)=>{
+  res.render('signIn')
+})
+
+router.get('/api/logar', (req, res)=>{
+  console.log('teste session email:', req.session)
+  res.render('login')
+})
+
+router.post('/login/register', usuarioController.cadastrarUsuario)
+
+router.post('/login/login', usuarioController.logarUsuario)
+
+router.get('/api/logout', usuarioController.logoutUsuario)
+
+
 router.get('/user/:id', async(req, res)=>{
   const id = req.params.id
 
@@ -25,40 +56,6 @@ router.get('/user/:id', async(req, res)=>{
   }
 
 })
-
-
-
-router.post('/api/criarLivro',livroController.criarLivro);
-
-router.post('/api/cadastro',usuarioController.cadastrarUsuario);
-
-router.get('/api/livros',livroController.busca);
-
-router.post('/api/realizarEmpresimo',emprestimoController.criarEmprestimo);
-
-
-
-router.get('/acharUsuario',(req,res)=>{
-    Usuario.find({})
-    .exec()
-    .then(usuarios => {
-      res.status(200).send(JSON.stringify(usuarios));
-    })
-    .catch(err => {
-      res.status(500).send(err);
-    });
-})
-
-//AREA DE LOGIN 
-
-router.get('/login', (req, res)=>{
-  res.send('Rota login/register funcionando')
-})
-
-router.post('/login/register', usuarioController.cadastrarUsuario)
-
-router.post('/login/login', usuarioController.logarUsuario)
-
 
 
 

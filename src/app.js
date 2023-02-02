@@ -6,7 +6,9 @@ const router = require('./router')
 const { default: mongoose } = require("mongoose");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const checkTK = require('./middlewares/middleware')
+const session = require('express-session')
+const MongoStore = require('connect-mongo');
+const { middlewareGlobal } = require('./middlewares/middleware');
 
 
 
@@ -20,14 +22,30 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 
 
 
+//Sessions 
+const sessionOptions = session({
+    secret: `adhjh12jk3h123812738dhajshdjkashdh`,
+    store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true
+      }
+});
+
+app.use(sessionOptions);
+
 //as rotas do diretorio Routers:
 const rotas = require('./router');
 const api = require('./Routers/api');
-const { checkToken } = require('./middlewares/middleware');
+
+
+app.use(middlewareGlobal);
 
 app.use(express.json())
+app.use(express.urlencoded({extended:true}));
 
-//app.use(checkToken())
 
 app.use(rotas);
 app.use('/api', api);

@@ -1,22 +1,18 @@
 const Usuario = require("../models/Usuario");
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
-exports.checkToken = (req, res, next) => {
-    const userHeader = req.headers['authorization']
-    const token = userHeader && userHeader.split(" ")[1]
+exports.middlewareGlobal = (req, res, next) => {
+    res.locals.email = req.session.email;
+    next();
+  };
 
-    const user = Usuario.findById(id, '-senha')
-
-    if(!user){
-      return res.status(401).json ({msg: 'Acesso recusado'})
+exports.loginReq = (req, res, next) => {
+    if(!req.session.email){
+      req.session.save(()=>{
+        res.redirect('/')
+        return
+      })
     }
-  
-    try {
-      const secret = process.env.SECRET
-      jwt.verify (token, secret)
-      next()
-
-    } catch (error) {
-      console.log(error)
-    }
-
+    next();
   };
