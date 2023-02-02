@@ -8,9 +8,16 @@ const Usuario = require('./models/Usuario');
 
 
 router.get('/', (req, res)=>{
-  res.send("Rota funcionando")
+  res.redirect('/api/index')
 })
 
+router.get('/api/index', (req, res)=>{
+  res.render('index')
+})
+
+router.get('/api/book-page', (req, res)=>{
+  res.render('book-page')
+})
 
 router.get('/:nome/:titulo/:autor/:anoLancamento',(req,res)=>{
 
@@ -69,7 +76,7 @@ router.get('/acharLivro',(req,res)=>{
     });
 })
 
-//AREA DE LOGIN 
+//AREA DE LOGIN ///////////
 
 router.get('/api/criarRegistro', (req, res)=>{
   res.render('signIn')
@@ -79,6 +86,13 @@ router.get('/api/logar', (req, res)=>{
   console.log('teste session email:', req.session)
   res.render('login')
 })
+
+
+router.post('/login/register', usuarioController.cadastrarUsuario)
+
+router.post('/login/login', usuarioController.logarUsuario)
+
+router.get('/api/logout', usuarioController.logoutUsuario)
 
 
 router.get('/user/:id', async(req, res)=>{
@@ -94,11 +108,6 @@ router.get('/user/:id', async(req, res)=>{
   }
 
 })
-
-router.post('/login/register', usuarioController.cadastrarUsuario)
-
-router.post('/login/login', usuarioController.logarUsuario)
-
 
 
 

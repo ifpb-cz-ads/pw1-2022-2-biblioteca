@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-const { check } = require('./middlewares/middleware');
+const { middlewareGlobal, loginReq } = require('./middlewares/middleware');
 
 
 
@@ -42,6 +42,8 @@ const api = require('./Routers/api');
 
 
 //app.use(check)
+app.use(middlewareGlobal);
+app.use(loginReq);
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));

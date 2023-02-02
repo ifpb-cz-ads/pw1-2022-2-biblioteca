@@ -2,6 +2,7 @@ const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const session = require('express-session')
+const { loginReq } = require('../middlewares/middleware');
 
 async function cadastrarUsuario(req,res){
   
@@ -55,12 +56,12 @@ async function cadastrarUsuario(req,res){
 
     try{
         await novoUsuario.save();
-        res.status(200).json({msg:"Usuario criado com sucesso"});
-        res.render('index')
+        
     }
     catch(e){
         console.log(e);
     }
+    res.redirect('/')
 }
 
 async function logarUsuario(req, res){
@@ -101,11 +102,17 @@ async function logarUsuario(req, res){
             },
             secret,
         )
-        res.render('index')
+        res.redirect('/')
     } catch (error) {
         console.log(error);
     }
 
 }
 
-module.exports = {cadastrarUsuario, logarUsuario};
+
+async function logoutUsuario(req, res){
+    req.session.destroy();
+    res.redirect('/')
+}
+
+module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario};
