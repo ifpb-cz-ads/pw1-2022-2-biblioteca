@@ -10,7 +10,7 @@ const MongoStore = require('connect-mongo');
 const path = require('path');
 const { middlewareGlobal } = require('./middlewares/middleware');
 const {contador} = require('./controllers/contador');
-
+const path = require('path');
 
 
 
