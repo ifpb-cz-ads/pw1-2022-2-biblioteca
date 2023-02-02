@@ -1,7 +1,7 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const session = require('express-session')
 
 async function cadastrarUsuario(req,res){
   
@@ -56,6 +56,7 @@ async function cadastrarUsuario(req,res){
     try{
         await novoUsuario.save();
         res.status(200).json({msg:"Usuario criado com sucesso"});
+        res.render('index')
     }
     catch(e){
         console.log(e);
@@ -85,6 +86,12 @@ async function logarUsuario(req, res){
     if(!checkPassword){
         return res.status(422).json({msg: 'Senha inválida'})
     }
+    
+    if(req.body.senha == senha && req.body.email == email){
+        //logado
+        req.session.email = email;
+        req.session.senha = senha;
+    }
 
     try {
         const secret = `${process.env.SECRET}`
@@ -94,7 +101,7 @@ async function logarUsuario(req, res){
             },
             secret,
         )
-        res.status(200).json({msg: 'Autenticado com sucesso', token })
+        res.render('index')
     } catch (error) {
         console.log(error);
     }

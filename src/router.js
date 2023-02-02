@@ -6,23 +6,9 @@ const Usuario = require('./models/Usuario');
 
 
 
+
 router.get('/', (req, res)=>{
   res.send("Rota funcionando")
-})
-
-//ROTA PRIVATA PARA USUARIOS LOGADOS
-router.get('/user/:id', async(req, res)=>{
-  const id = req.params.id
-
-  //checkando usuários
-  const user = await Usuario.findById(id, '-senha')
-
-  if(!user){
-    return res.status(404).json({msg: 'Usuário não encontrado'})
-  }else{
-    return res.status(200).json(user)
-  }
-
 })
 
 
@@ -90,9 +76,24 @@ router.get('/api/criarRegistro', (req, res)=>{
 })
 
 router.get('/api/logar', (req, res)=>{
+  console.log('teste session email:', req.session)
   res.render('login')
 })
 
+
+router.get('/user/:id', async(req, res)=>{
+  const id = req.params.id
+
+  //checkando usuários
+  const user = await Usuario.findById(id, '-senha')
+
+  if(!user){
+    return res.status(404).json({msg: 'Usuário não encontrado'})
+  }else{
+    return res.status(200).json(user)
+  }
+
+})
 
 router.post('/login/register', usuarioController.cadastrarUsuario)
 
