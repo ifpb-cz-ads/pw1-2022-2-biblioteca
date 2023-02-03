@@ -6,7 +6,7 @@ const EmprestimoSchema = new Schema({
     dataEmprestimo: Date,
     dataEntrega: Date,
     livro:[
-        {type: Schema.Types.String, ref: "Livro"}
+        {type: Schema.Types.ObjectId, ref: "Livro"}
     ],
     usuario:[
         {type: Schema.Types.String,ref: "Usuario"}

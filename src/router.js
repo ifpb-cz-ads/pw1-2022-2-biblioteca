@@ -7,8 +7,6 @@ const Usuario = require('./models/Usuario');
 const { application } = require('express');
 
 
-
-
 router.get('/', (req, res)=>{
   res.redirect('/api/index')
 })
@@ -29,7 +27,10 @@ router.get('/api/buscaTexto',livroController.buscaTexto)
 
 router.post('/api/gerarEmprestimo',emprestimoController.criarEmprestimo);
 
-router.get('/api/todosEmprestimo',emprestimoController.todosEmprestimos)
+router.get('/api/todosEmprestimo',emprestimoController.todosEmprestimos);
+
+router.get('/api/emprestimoUser',emprestimoController.emprestimoUser);
+
 
 
 //AREA DE LOGIN ///////////
