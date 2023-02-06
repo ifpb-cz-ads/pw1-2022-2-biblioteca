@@ -2,17 +2,20 @@ const express = require('express');
 const router = express.Router();
 const livroController = require('./controllers/livroController');
 const usuarioController = require('./controllers/userController');
+const emprestimoController = require('./controllers/emprestimoController');
 const Usuario = require('./models/Usuario');
-const { loginReq } = require('./middlewares/middleware');
+const { application } = require('express');
 
 
 
 
 router.get('/', (req, res)=>{
-  res.redirect('/api/index')
+  res.redirect('/index')
 })
 
-router.get('/api/index', (req, res)=>{
+router.get('/cadastrar-livro', livroController.bookForm);
+
+router.get('/index', (req, res)=>{
   res.render('index')
 })
 
@@ -22,6 +25,11 @@ router.get('/api/book-page', (req, res)=>{
 
 router.post('/api/criarLivro', loginReq, livroController.criarLivro);
 
+router.get('/api/buscarLivro',livroController.busca);
+
+router.get('/api/buscaTexto',livroController.buscaTexto)
+
+router.post('/api/gerarEmprestimo',emprestimoController.criarEmprestimo);
 
 
 //AREA DE LOGIN ///////////
@@ -39,7 +47,10 @@ router.post('/login/register', usuarioController.cadastrarUsuario)
 
 router.post('/login/login', usuarioController.logarUsuario)
 
-router.get('/api/logout', usuarioController.logoutUsuario)
+router.get('/api/logout', usuarioController.logoutUsuario);
+
+//n use
+router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
 
 
 router.get('/user/:id', async(req, res)=>{
@@ -60,6 +71,3 @@ router.get('/user/:id', async(req, res)=>{
 
 
 module.exports = router;
-
-//http://localhost:3000/micachan/melinda/sarauiva/1999-10-2
-//http://localhost:3000/user/12212121/pesado/9999999/@chinesl/roraima

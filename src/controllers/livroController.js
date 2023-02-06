@@ -37,23 +37,43 @@ async function buscaTexto(req,res){
 }
 
 async function criarLivro(req,res){
+		const {titulo, autor, anoLancamento, isbn} = req.body;
 
     const novoLivro = new Livro({
-        ISBN: req.query.isbm,
-        title: req.query.titulo,
-        autor: req.query.autor,
-        ano: new Date(req.query.anoLancamento)
+        ISBN: isbn,
+        title: titulo,
+        autor: autor,
+        ano: new Date(anoLancamento)
       });
       
     novoLivro.save((err, result) => {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.status(200).json({menssagem:result});
+          res.status(200).json({mensagem:result});
         }
     });
 
 }
 
+// Frontend
+	// Página inicial / livros (?)
+	async function index(req, res){
+		try{
+			const books = await Livro.find({});
+			console.log(books);
+			res.render('index', {books});
+		} catch(err){
+			console.log(err);
+			res.status(404).send('Não foi possível encontrar os livros!');
+		}
+	}
 
-module.exports = {busca , buscaTexto,criarLivro}; 
+	// Criar livro
+	async function bookForm(req, res){
+		res.render('bookForm');
+	}
+
+
+
+module.exports = {busca , buscaTexto, criarLivro, index, bookForm}; 
