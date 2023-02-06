@@ -74,6 +74,11 @@ async function criarLivro(req,res){
 		res.render('bookForm');
 	}
 
+	// Ver livros emprestados
+	async function livrosEmprestados(req, res) {
+		const books = await Livro.find({});
+		res.render('livrosEmprestados', {books})
+	}
 
 
-module.exports = {busca , buscaTexto, criarLivro, index, bookForm}; 
+module.exports = {busca , buscaTexto, criarLivro, index, bookForm, livrosEmprestados};

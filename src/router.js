@@ -13,11 +13,11 @@ router.get('/', (req, res)=>{
   res.redirect('/index')
 })
 
-router.get('/cadastrar-livro', livroController.bookForm);
+router.get('/index', livroController.index);
 
-router.get('/index', (req, res)=>{
-  res.render('index')
-})
+router.get('/livros', livroController.livrosEmprestados);
+
+router.get('/cadastrar-livro', livroController.bookForm);
 
 router.get('/api/book-page', (req, res)=>{
   res.render('book-page')
