@@ -60,11 +60,8 @@ async function criarLivro(req,res){
 	// Página inicial / livros (?)
 	async function index(req, res){
 		try{
-//			const books = await Livro.find({});
-//			console.log(books);
-			const books = [
-				{title: 'Teste', autor: 'Robson', ano: 2023}
-			]
+			const books = await Livro.find({});
+			console.log(books);
 			res.render('index', {books});
 		} catch(err){
 			console.log(err);

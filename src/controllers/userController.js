@@ -15,29 +15,9 @@ async function cadastrarUsuario(req,res){
         return res.status(422).json({msg: "A matricula é obrigatoria"});
     }*/
 
-    if(!nome){
-        return res.status(422).json({msg: "O nome é obrigatorio"});
-    }
+    const usuarioExiste = await Usuario.findOne({email:email});
 
-    if(!email){
-        return res.status(422).json({msg: "O email é obrigatorio"});
-    }
-
-    if(!senha){
-        return res.status(422).json({msg: "A senha é obrigatoria"});
-    }
-
-    if(!confirmarSenha){
-        return res.status(422).json({msg: "Confirmar a senha é obrigatorio"});   
-    }
-
-    if(senha != confirmarSenha){
-        return res.status(422).json({msg: "Senhas diferentes"});   
-    }
-
-    const ususuarioExiste = await Usuario.findOne({email:email});
-
-    if(ususuarioExiste){
+    if(usuarioExiste){
         return res.status(422).json({msg:"Email ja cadastrado, insira outro e-mail"});
     }
 
@@ -66,14 +46,6 @@ async function cadastrarUsuario(req,res){
 
 async function logarUsuario(req, res){
     const {email, senha} = req.body
-
-    if(!email){
-        return res.status(422).json({msg: "O email é obrigatorio"});
-    }
-
-    if(!senha){
-        return res.status(422).json({msg: "A senha é obrigatoria"});
-    }
 
     //Checkando se o usuário está cadastrado
     const user = await Usuario.findOne({email:email});
