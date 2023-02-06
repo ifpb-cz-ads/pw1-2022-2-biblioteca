@@ -50,7 +50,7 @@ async function criarLivro(req,res){
         if (err) {
           res.status(400).send(err);
         } else {
-          res.status(200).json({menssagem:result});
+          res.status(200).json({mensagem:result});
         }
     });
 
@@ -69,4 +69,11 @@ async function criarLivro(req,res){
 		}
 	}
 
-module.exports = {busca , buscaTexto, criarLivro, index}; 
+	// Criar livro
+	async function bookForm(req, res){
+		res.render('bookForm');
+	}
+
+
+
+module.exports = {busca , buscaTexto, criarLivro, index, bookForm}; 

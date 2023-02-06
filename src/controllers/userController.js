@@ -6,14 +6,7 @@ const { loginReq } = require('../middlewares/middleware');
 
 async function cadastrarUsuario(req,res){
   
-    const { nome, email, senha, confirmarSenha} = req.body;
-    console.log(req.body);
-
-//matricula, categoria, telefone
-
-    /*if(!matricula){
-        return res.status(422).json({msg: "A matricula é obrigatoria"});
-    }*/
+    const { nome, email, matricula, telefone, categoria, senha, confirmarSenha} = req.body;
 
     const usuarioExiste = await Usuario.findOne({email:email});
 
@@ -25,10 +18,10 @@ async function cadastrarUsuario(req,res){
     const password = await  bcrypt.hash(senha, saltos);
 
     const novoUsuario = new Usuario({
-        /*matricula: matricula,
-        categoria: categoria,*/
+        matricula: matricula,
+        categoria: categoria,
         nome: nome,
-        //telefone: telefone,
+        telefone: telefone,
         email: email,
         //estado: "ok",
         senha: password

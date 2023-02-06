@@ -10,10 +10,12 @@ const { application } = require('express');
 
 
 router.get('/', (req, res)=>{
-  res.redirect('/api/index')
+  res.redirect('/index')
 })
 
-router.get('/api/index', (req, res)=>{
+router.get('/cadastrar-livro', livroController.bookForm);
+
+router.get('/index', (req, res)=>{
   res.render('index')
 })
 
