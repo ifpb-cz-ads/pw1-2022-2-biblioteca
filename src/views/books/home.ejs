@@ -8,7 +8,8 @@
 				<h3 class="item"><%= book.autor %></h3>
 				<h3 class="item"><%= book.ano %></h3>
 
-		<form action="http://localhost:3000/api/gerarEmprestimo" method="post" class="buttons">
+				<form action="http://localhost:3000/api/gerarEmprestimo" method="post" class="buttons">
+					<input type="hidden" value="<%= book._id %>" name="id">
 					<input type="submit" class="btn btn-primary" value="Empréstimo">
 				</form>
 			</div>
