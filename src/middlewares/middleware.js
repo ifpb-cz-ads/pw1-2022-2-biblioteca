@@ -9,7 +9,9 @@ exports.middlewareGlobal = async (req, res, next) => {
 }
 
 exports.loginReq = async(req, res, next)=>{
-  const token = req.headers.authorization;
+	const {access_token} = req.cookies;
+
+	const [, token] = access_token.split(' ');
 
   jtw.verify(token, process.env.SECRET, (err)=>{
     if(err){
