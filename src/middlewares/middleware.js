@@ -1,10 +1,9 @@
-const Usuario = require("../models/Usuario");
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-
 exports.middlewareGlobal = (req, res, next) => {
-    res.locals.email = req.session.email;
-    next();
+  res.locals.user = req.session.user;
+  res.locals.email = req.session.email;
+  // res.locals.errors = req.flash('error');
+  // res.locals.infos = req.flash('info');
+  next();
   };
 
 exports.loginReq = (req, res, next) => {
@@ -16,3 +15,5 @@ exports.loginReq = (req, res, next) => {
     }
     next();
   };
+
+

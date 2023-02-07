@@ -3,17 +3,23 @@ const router = express.Router();
 const livroController = require('./controllers/livroController');
 const usuarioController = require('./controllers/userController');
 const emprestimoController = require('./controllers/emprestimoController');
+const {loginreq} = require('./middlewares/middleware');
 const Usuario = require('./models/Usuario');
-const { application } = require('express');
 
 
 router.get('/', (req, res)=>{
   res.redirect('/api/index')
 })
 
+<<<<<<< Updated upstream
 router.get('/api/index', (req, res)=>{
   res.render('index')
 })
+=======
+router.get('/cadastrar-livro', livroController.bookForm);
+
+router.get('/index',livroController.index);
+>>>>>>> Stashed changes
 
 router.get('/api/book-page', (req, res)=>{
   res.render('book-page')
@@ -40,7 +46,7 @@ router.get('/api/criarRegistro', (req, res)=>{
 })
 
 router.get('/api/logar', (req, res)=>{
-  console.log('teste session email:', req.session)
+  console.log(res.locals.user,"tesstando middleware");
   res.render('login')
 })
 
@@ -52,6 +58,8 @@ router.get('/api/logout', usuarioController.logoutUsuario);
 
 //n use
 router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
+router.delete('/api/deleteBook',livroController.deleteAllLivros);
+router.delete('/api/deleteUser',usuarioController.deleteAllUser);
 
 
 router.get('/user/:id', async(req, res)=>{

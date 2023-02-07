@@ -33,6 +33,7 @@ async function deleteAllEmprestimos(req,res){
     }
 
     res.send("Ok");
+<<<<<<< Updated upstream
 };
 
 async function todosEmprestimos(req,res){
@@ -64,6 +65,11 @@ async function emprestimoUser(req, res) {
 
 
   
+=======
+  };
+
+
+>>>>>>> Stashed changes
   
 
 module.exports={criarEmprestimo,deleteAllEmprestimos,todosEmprestimos,emprestimoUser};
