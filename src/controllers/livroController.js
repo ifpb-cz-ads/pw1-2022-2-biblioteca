@@ -64,7 +64,7 @@ async function criarLivro(req,res){
 	async function index(req, res){
 		try{
 			const books = await Livro.find({});
-			console.log(books);
+			//console.log(books);
 			res.render('index', {books});
 		} catch(err){
 			console.log(err);
@@ -97,6 +97,11 @@ async function deleteAllLivros(req,res){
   };
   
 
+// Ver livros emprestados
+async function livrosEmprestados(req, res) {
+    const books = await Livro.find({});
+    res.render('livrosEmprestados', {books})
+}
 
 
 

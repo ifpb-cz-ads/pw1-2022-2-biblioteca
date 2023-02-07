@@ -1,8 +1,8 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const session = require('express-session')
-const { loginReq } = require('../middlewares/middleware');
+
+
 
 async function cadastrarUsuario(req,res){
   
@@ -84,36 +84,29 @@ async function logarUsuario(req, res){
   
       if (match) {
         const token = await jwt.sign(
-          { userId: user.id },
-          process.env.SECRET_KEY,
+          { id: user.id },
+          process.env.SECRET,
           { expiresIn: 3600 } // 1h
         );
   
         const tokenBearer = `Bearer ${token}`;
   
         req.session.user = user;
-
-        console.log(tokenBearer);
   
         res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
         res.set('Authorization', tokenBearer);
+        console.log('TokenBearer', tokenBearer)
         res.redirect('/');
       } else {
         console.log('Senha inválida.');
-        req.flash('error', 'Senha inválida. Tente novamente.');
-        res.redirect('/signup');
+        res.redirect('/api/logar');
       }
     } catch (error) {
       console.log(error);
-      req.flash('error', 'Usuário não cadastrado. Realize seu cadastro.');
-      res.redirect('/signup');
+      res.redirect('/api/logar');
     }
+
 }
-
-
-
-
-
 
 
 

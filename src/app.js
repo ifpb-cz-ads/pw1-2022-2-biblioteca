@@ -3,11 +3,9 @@ const express = require('express');
 const app = express();
 const router = require('./router')
 const { default: mongoose } = require("mongoose");
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-const { middlewareGlobal} = require('./middlewares/middleware');
+const { middlewareGlobal,} = require('./middlewares/middleware');
 const path = require('path');
 // const {contador} = require('./controllers/contador');
 
@@ -24,7 +22,7 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 
 //Sessions 
 const sessionOptions = session({
-    secret: process.env.SECRET_KEY,
+    secret: process.env.SECRET,
     store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
     resave: true,
     saveUninitialized: true,
