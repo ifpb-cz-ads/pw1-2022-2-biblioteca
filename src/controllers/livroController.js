@@ -77,11 +77,20 @@ async function criarLivro(req,res){
 		res.render('bookForm');
 	}
 
-	// Ver livros emprestados
-	async function livrosEmprestados(req, res) {
-		const books = await Livro.find({});
-		res.render('livrosEmprestados', {books})
-	}
+// deletar livros    
+async function deleteAllLivros(req,res){
+    try {
+      await Livro.deleteMany({});
+      console.log("Todos os livros foram deletados com sucesso");
+    } catch (err) {
+      console.error(err);
+    }
+
+    res.send("Ok");
+  };
+  
 
 
-module.exports = {busca , buscaTexto, criarLivro, index, bookForm, livrosEmprestados};
+
+
+module.exports = {busca , buscaTexto, criarLivro, index, bookForm,deleteAllLivros}; 

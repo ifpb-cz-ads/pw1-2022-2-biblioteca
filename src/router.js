@@ -3,9 +3,12 @@ const router = express.Router();
 const livroController = require('./controllers/livroController');
 const usuarioController = require('./controllers/userController');
 const emprestimoController = require('./controllers/emprestimoController');
+const {loginreq} = require('./middlewares/middleware');
 const Usuario = require('./models/Usuario');
 const { application } = require('express');
 const {upload} = require('./config/parser');
+
+
 
 router.get('/', (req, res)=>{
   res.redirect('/index')
@@ -46,7 +49,7 @@ router.get('/api/criarRegistro', (req, res)=>{
 })
 
 router.get('/api/logar', (req, res)=>{
-  console.log('teste session email:', req.session)
+  console.log(res.locals.user,"tesstando middleware");
   res.render('login')
 })
 
@@ -58,6 +61,8 @@ router.get('/api/logout', usuarioController.logoutUsuario);
 
 //n use
 router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
+router.delete('/api/deleteBook',livroController.deleteAllLivros);
+router.delete('/api/deleteUser',usuarioController.deleteAllUser);
 
 
 router.get('/user/:id', async(req, res)=>{
