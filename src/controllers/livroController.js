@@ -90,7 +90,11 @@ async function deleteAllLivros(req,res){
   };
   
 
+// Ver livros emprestados
+async function livrosEmprestados(req, res) {
+    const books = await Livro.find({});
+    res.render('livrosEmprestados', {books})
+}
 
 
-
-module.exports = {busca , buscaTexto, criarLivro, index, bookForm,deleteAllLivros}; 
+module.exports = {busca , buscaTexto, criarLivro, index, bookForm,deleteAllLivros, livrosEmprestados}; 

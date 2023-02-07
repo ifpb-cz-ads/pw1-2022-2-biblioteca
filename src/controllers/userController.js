@@ -71,11 +71,7 @@ async function logarUsuario(req, res){
     }
 
 }
-
-
-
-
-
+//DESLOGAR USER
 async function logoutUsuario(req, res){
     req.session.destroy();
     res.redirect('/')

@@ -1,6 +1,5 @@
 exports.middlewareGlobal = (req, res, next) => {
   res.locals.user = req.session.user;
-  res.locals.email = req.session.email;
   // res.locals.errors = req.flash('error');
   // res.locals.infos = req.flash('info');
   next();
