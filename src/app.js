@@ -5,7 +5,7 @@ const router = require('./router')
 const { default: mongoose } = require("mongoose");
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-const { middlewareGlobal} = require('./middlewares/middleware');
+const { middlewareGlobal,} = require('./middlewares/middleware');
 const path = require('path');
 // const {contador} = require('./controllers/contador');
 
@@ -22,7 +22,7 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 
 //Sessions 
 const sessionOptions = session({
-    secret: `adhjh12jk3h123812738dhajshdjkashdh`,
+    secret: process.env.SECRET,
     store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
     resave: true,
     saveUninitialized: true,

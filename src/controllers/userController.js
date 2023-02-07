@@ -1,8 +1,8 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const session = require('express-session')
-const { loginReq } = require('../middlewares/middleware');
+
+
 
 async function cadastrarUsuario(req,res){
   
@@ -38,41 +38,41 @@ async function cadastrarUsuario(req,res){
 }
 
 async function logarUsuario(req, res){
-    try {
-        const { email, senha } = req.body;
-    
-        const user = await Usuario.findOne({email:email});
-    
-        const match = await bcrypt.compare(senha, user.senha);
-    
-        if (match) {
-          const token = await jwt.sign(
-            { userId: user.id },
-            process.env.SECRET_KEY,
-            { expiresIn: 3600 } // 1h
-          );
-    
-          const tokenBearer = `Bearer ${token}`;
-    
-          req.session.user = user;
-    
-          res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
-          res.set('Authorization', tokenBearer);
-          res.redirect('/');
-        } else {
-          console.log('Senha inválida.');
-          req.flash('error', 'Senha inválida. Tente novamente.');
-          res.redirect('/signup');
-        }
-      } catch (error) {
-        console.log(error);
-        req.flash('error', 'Usuário não cadastrado. Realize seu cadastro.');
-        res.redirect('/signup');
+  try {
+      const { email, senha } = req.body;
+  
+      const user = await Usuario.findOne({email:email});
+  
+      const match = await bcrypt.compare(senha, user.senha);
+  
+      if (match) {
+        const token = await jwt.sign(
+          { id: user.id },
+          process.env.SECRET,
+          { expiresIn: 3600 } // 1h
+        );
+  
+        const tokenBearer = `Bearer ${token}`;
+  
+        req.session.user = user;
+  
+        res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
+        res.set('Authorization', tokenBearer);
+        console.log('TokenBearer', tokenBearer)
+        res.redirect('/');
+      } else {
+        console.log('Senha inválida.');
+        res.redirect('/api/logar');
       }
+    } catch (error) {
+      console.log(error);
+      res.redirect('/api/logar');
+    }
 
 }
 
-//Deslogar user
+
+
 async function logoutUsuario(req, res){
     req.session.destroy();
     res.redirect('/')

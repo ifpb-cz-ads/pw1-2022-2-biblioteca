@@ -28,11 +28,11 @@ router.get('/api/buscarLivro', livroController.busca);
 
 router.get('/api/buscaTexto', livroController.buscaTexto)
 
-router.post('/api/gerarEmprestimo', loginReq,emprestimoController.criarEmprestimo);
+router.post('/api/gerarEmprestimo', loginReq, emprestimoController.criarEmprestimo);
 
-router.get('/api/todosEmprestimo',emprestimoController.todosEmprestimos);
+router.get('/api/todosEmprestimo', emprestimoController.todosEmprestimos);
 
-router.get('/api/emprestimoUser',emprestimoController.emprestimoUser);
+router.get('/api/emprestimoUser', emprestimoController.emprestimoUser);
 
 
 
@@ -43,7 +43,6 @@ router.get('/api/criarRegistro', (req, res)=>{
 })
 
 router.get('/api/logar', (req, res)=>{
-  console.log('session:', req.session.user)
   res.render('login')
 })
 
@@ -56,7 +55,11 @@ router.get('/api/logout', usuarioController.logoutUsuario);
 //n use
 router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
 
+router.get("/api/teste/:id"), async(req, res)=>{
+  const id = req.params.id
 
+
+}
 
 
 module.exports = router;

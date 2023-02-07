@@ -5,25 +5,23 @@ const path = require('path')
 
 async function criarEmprestimo(req,res){
 
+    const {email} = req.body;
     const id = "63e1aab9a888e62f2cf4da85"; 
-    const user = await Usuario.findOne({email:req.session.user.email});
-    console.log(user.id);
 
-    const novoEmprestimo = new Emprestimo({
+      const user = await Usuario.findOne({email:email});
+      console.log(user)
+
+      const novoEmprestimo = new Emprestimo({
         dataEmprestimo: new Date(),
         dataEntrega: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         livro: [id],
-        usuario: [user.id],
+        usuario: [user],
         diasDesdeUltimoEmprestimo: 0
     });
-      
-    try{
-        await novoEmprestimo.save();
-        res.status(200).json({msg:"Emprestimo realizado com sucesso"});
-    }
-    catch(e){
-        console.log(e);
-    }
+    await novoEmprestimo.save();
+
+
+    
 }
 
 async function deleteAllEmprestimos(req,res){
