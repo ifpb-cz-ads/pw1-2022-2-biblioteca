@@ -24,7 +24,7 @@ mongoose.connect(process.env.CONNECTIONSTRING).then(()=>{
 
 //Sessions 
 const sessionOptions = session({
-    secret: `adhjh12jk3h123812738dhajshdjkashdh`,
+    secret: process.env.SECRET_KEY,
     store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
     resave: true,
     saveUninitialized: true,
