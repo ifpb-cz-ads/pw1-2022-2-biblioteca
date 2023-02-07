@@ -6,6 +6,7 @@ const LivroSchema = new Schema({
     title: String,
     autor: String,
     ano: Number,
+		capa: String
 });
 
 LivroSchema.index({ title: 'text', autor: 'text' }, { weights: { title: 2, content: 1 } });

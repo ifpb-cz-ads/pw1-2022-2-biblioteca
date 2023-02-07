@@ -38,12 +38,15 @@ async function buscaTexto(req,res){
 
 async function criarLivro(req,res){
 		const {titulo, autor, anoLancamento, isbn} = req.body;
+		const imagem = `/imgs/${req.file.filename}`;
+		console.log(imagem);
 
     const novoLivro = new Livro({
         ISBN: isbn,
         title: titulo,
         autor: autor,
-        ano: new Date(anoLancamento)
+        ano: new Date(anoLancamento),
+				capa: imagem
       });
       
     novoLivro.save((err, result) => {
@@ -74,6 +77,11 @@ async function criarLivro(req,res){
 		res.render('bookForm');
 	}
 
+	// Ver livros emprestados
+	async function livrosEmprestados(req, res) {
+		const books = await Livro.find({});
+		res.render('livrosEmprestados', {books})
+	}
 
 
-module.exports = {busca , buscaTexto, criarLivro, index, bookForm}; 
+module.exports = {busca , buscaTexto, criarLivro, index, bookForm, livrosEmprestados};
