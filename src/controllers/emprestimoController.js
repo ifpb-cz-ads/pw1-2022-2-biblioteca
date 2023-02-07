@@ -1,17 +1,19 @@
 const Emprestimo = require('../models/Emprestimo');
+const Usuario = require('../models/Usuario')
 const path = require('path')
 
 
 async function criarEmprestimo(req,res){
 
-    const id = "mande de alguma forma"; 
-    const email = req.session.email;
+    const id = "63e1aab9a888e62f2cf4da85"; 
+    const user = await Usuario.findOne({email:req.session.user.email});
+    console.log(user.id);
 
     const novoEmprestimo = new Emprestimo({
         dataEmprestimo: new Date(),
         dataEntrega: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         livro: [id],
-        usuario: [email],
+        usuario: [user.id],
         diasDesdeUltimoEmprestimo: 0
     });
       

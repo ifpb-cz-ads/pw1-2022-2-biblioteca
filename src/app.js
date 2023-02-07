@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-const { middlewareGlobal } = require('./middlewares/middleware');
+const { middlewareGlobal} = require('./middlewares/middleware');
 const path = require('path');
 // const {contador} = require('./controllers/contador');
 
