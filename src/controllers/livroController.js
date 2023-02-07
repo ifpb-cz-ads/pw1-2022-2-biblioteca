@@ -38,19 +38,22 @@ async function buscaTexto(req,res){
 
 async function criarLivro(req,res){
 		const {titulo, autor, anoLancamento, isbn} = req.body;
+		const imagem = `/imgs/${req.file.filename}`;
+		console.log(imagem);
 
     const novoLivro = new Livro({
         ISBN: isbn,
         title: titulo,
         autor: autor,
-        ano: new Date(anoLancamento)
+        ano: new Date(anoLancamento),
+				capa: imagem
       });
       
     novoLivro.save((err, result) => {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.status(200).json({menssagem:result});
+          res.status(200).json({mensagem:result});
         }
     });
 

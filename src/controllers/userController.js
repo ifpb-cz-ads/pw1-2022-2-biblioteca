@@ -6,38 +6,11 @@ const { loginReq } = require('../middlewares/middleware');
 
 async function cadastrarUsuario(req,res){
   
-    const { nome, email, senha, confirmarSenha} = req.body;
-    console.log(req.body);
+    const { nome, email, matricula, telefone, categoria, senha, confirmarSenha} = req.body;
 
-//matricula, categoria, telefone
+    const usuarioExiste = await Usuario.findOne({email:email});
 
-    /*if(!matricula){
-        return res.status(422).json({msg: "A matricula é obrigatoria"});
-    }*/
-
-    if(!nome){
-        return res.status(422).json({msg: "O nome é obrigatorio"});
-    }
-
-    if(!email){
-        return res.status(422).json({msg: "O email é obrigatorio"});
-    }
-
-    if(!senha){
-        return res.status(422).json({msg: "A senha é obrigatoria"});
-    }
-
-    if(!confirmarSenha){
-        return res.status(422).json({msg: "Confirmar a senha é obrigatorio"});   
-    }
-
-    if(senha != confirmarSenha){
-        return res.status(422).json({msg: "Senhas diferentes"});   
-    }
-
-    const ususuarioExiste = await Usuario.findOne({email:email});
-
-    if(ususuarioExiste){
+    if(usuarioExiste){
         return res.status(422).json({msg:"Email ja cadastrado, insira outro e-mail"});
     }
 
@@ -67,18 +40,18 @@ async function cadastrarUsuario(req,res){
 // async function logarUsuario(req, res){
 //     const {email, senha} = req.body
 
-//     //Checkando se o usuário está cadastrado
-//     const user = await Usuario.findOne({email:email});
+    //Checkando se o usuário está cadastrado
+    const user = await Usuario.findOne({email:email});
 
-//     if(!user){
-//         return res.status(404).json({msg:"Usuário não encontrado"});
-//     }
+    if(!user){
+        return res.status(404).json({msg:"Usuário não encontrado"});
+    }
 
-//     //Checkando se a senha está correta
-//     const checkPassword = await bcrypt.compare(senha, user.senha)
-//     if(!checkPassword){
-//         return res.status(422).json({msg: 'Senha inválida'})
-//     }
+    //Checkando se a senha está correta
+    const checkPassword = await bcrypt.compare(senha, user.senha)
+    if(!checkPassword){
+        return res.status(422).json({msg: 'Senha inválida'})
+    }
     
 //     if(req.body.senha == senha && req.body.email == email){
 //         //logado

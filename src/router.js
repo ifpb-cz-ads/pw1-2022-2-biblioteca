@@ -5,27 +5,32 @@ const usuarioController = require('./controllers/userController');
 const emprestimoController = require('./controllers/emprestimoController');
 const {loginreq} = require('./middlewares/middleware');
 const Usuario = require('./models/Usuario');
+const { application } = require('express');
+const {upload} = require('./config/parser');
+
 
 
 router.get('/', (req, res)=>{
-  res.redirect('/api/index')
+  res.redirect('/index')
 })
 
-router.get('/cadastrar-livro', livroController.bookForm);
+router.get('/index', livroController.index);
 
-router.get('/index',livroController.index);
+router.get('/livros', livroController.livrosEmprestados);
+
+router.get('/cadastrar-livro', livroController.bookForm);
 
 router.get('/api/book-page', (req, res)=>{
   res.render('book-page')
 })
 
-router.post('/api/criarLivro',livroController.criarLivro);
+router.post('/api/criarLivro', upload.single('image'),livroController.criarLivro);
 
-router.get('/api/buscarLivro',livroController.busca);
+router.get('/api/buscarLivro', livroController.busca);
 
-router.get('/api/buscaTexto',livroController.buscaTexto)
+router.get('/api/buscaTexto', livroController.buscaTexto)
 
-router.post('/api/gerarEmprestimo',emprestimoController.criarEmprestimo);
+router.post('/api/gerarEmprestimo', emprestimoController.criarEmprestimo);
 
 router.get('/api/todosEmprestimo',emprestimoController.todosEmprestimos);
 
