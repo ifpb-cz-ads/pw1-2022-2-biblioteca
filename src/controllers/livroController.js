@@ -69,9 +69,6 @@ async function criarLivro(req,res){
 		}
 	}
 
-<<<<<<< Updated upstream
-module.exports = {busca , buscaTexto, criarLivro, index}; 
-=======
 	// Criar livro
 	async function bookForm(req, res){
 		res.render('bookForm');
@@ -94,4 +91,3 @@ async function deleteAllLivros(req,res){
 
 
 module.exports = {busca , buscaTexto, criarLivro, index, bookForm,deleteAllLivros}; 
->>>>>>> Stashed changes

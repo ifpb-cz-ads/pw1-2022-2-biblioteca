@@ -67,21 +67,8 @@ async function cadastrarUsuario(req,res){
 // async function logarUsuario(req, res){
 //     const {email, senha} = req.body
 
-<<<<<<< Updated upstream
-    if(!email){
-        return res.status(422).json({msg: "O email é obrigatorio"});
-    }
-
-    if(!senha){
-        return res.status(422).json({msg: "A senha é obrigatoria"});
-    }
-
-    //Checkando se o usuário está cadastrado
-    const user = await Usuario.findOne({email:email});
-=======
 //     //Checkando se o usuário está cadastrado
 //     const user = await Usuario.findOne({email:email});
->>>>>>> Stashed changes
 
 //     if(!user){
 //         return res.status(404).json({msg:"Usuário não encontrado"});
@@ -159,9 +146,6 @@ async function logoutUsuario(req, res){
     res.redirect('/')
 }
 
-<<<<<<< Updated upstream
-module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario};
-=======
 
 // deletar usuario   
 async function deleteAllUser(req,res){
@@ -178,4 +162,3 @@ async function deleteAllUser(req,res){
 
 
 module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario,deleteAllUser};
->>>>>>> Stashed changes

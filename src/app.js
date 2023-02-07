@@ -7,13 +7,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-<<<<<<< Updated upstream
-=======
 const { middlewareGlobal } = require('./middlewares/middleware');
-// const {contador} = require('./controllers/contador');
->>>>>>> Stashed changes
 const path = require('path');
-const { middlewareGlobal } = require('./middlewares/middleware');
 // const {contador} = require('./controllers/contador');
 
 
