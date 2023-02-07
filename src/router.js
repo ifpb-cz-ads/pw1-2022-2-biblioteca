@@ -5,7 +5,7 @@ const usuarioController = require('./controllers/userController');
 const emprestimoController = require('./controllers/emprestimoController');
 const Usuario = require('./models/Usuario');
 const { application } = require('express');
-
+const {upload} = require('./config/parser');
 
 
 
@@ -23,13 +23,13 @@ router.get('/api/book-page', (req, res)=>{
   res.render('book-page')
 })
 
-router.post('/api/criarLivro',livroController.criarLivro);
+router.post('/api/criarLivro', upload.single('image'),livroController.criarLivro);
 
-router.get('/api/buscarLivro',livroController.busca);
+router.get('/api/buscarLivro', livroController.busca);
 
-router.get('/api/buscaTexto',livroController.buscaTexto)
+router.get('/api/buscaTexto', livroController.buscaTexto)
 
-router.post('/api/gerarEmprestimo',emprestimoController.criarEmprestimo);
+router.post('/api/gerarEmprestimo', emprestimoController.criarEmprestimo);
 
 
 //AREA DE LOGIN ///////////
