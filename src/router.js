@@ -3,7 +3,7 @@ const router = express.Router();
 const livroController = require('./controllers/livroController');
 const usuarioController = require('./controllers/userController');
 const emprestimoController = require('./controllers/emprestimoController');
-const {loginreq} = require('./middlewares/middleware');
+const {loginReq} = require('./middlewares/middleware');
 const Usuario = require('./models/Usuario');
 const { application } = require('express');
 const {upload} = require('./config/parser');
@@ -28,7 +28,7 @@ router.get('/api/buscarLivro', livroController.busca);
 
 router.get('/api/buscaTexto', livroController.buscaTexto)
 
-router.post('/api/gerarEmprestimo', emprestimoController.criarEmprestimo);
+router.post('/api/gerarEmprestimo', loginReq,emprestimoController.criarEmprestimo);
 
 router.get('/api/todosEmprestimo',emprestimoController.todosEmprestimos);
 

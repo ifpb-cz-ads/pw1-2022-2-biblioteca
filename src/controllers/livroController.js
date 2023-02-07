@@ -77,6 +77,13 @@ async function criarLivro(req,res){
 		res.render('bookForm');
 	}
 
+  // Ver livros emprestados
+	async function livrosEmprestados(req, res) {
+		const books = await Livro.find({});
+		res.render('livrosEmprestados', {books})
+	}
+
+
 // deletar livros    
 async function deleteAllLivros(req,res){
     try {
@@ -97,4 +104,5 @@ async function livrosEmprestados(req, res) {
 }
 
 
-module.exports = {busca , buscaTexto, criarLivro, index, bookForm,deleteAllLivros, livrosEmprestados}; 
+
+module.exports = {busca , buscaTexto, criarLivro, index, bookForm,livrosEmprestados,deleteAllLivros}; 

@@ -5,7 +5,7 @@ const router = require('./router')
 const { default: mongoose } = require("mongoose");
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-const { middlewareGlobal } = require('./middlewares/middleware');
+const { middlewareGlobal} = require('./middlewares/middleware');
 const path = require('path');
 // const {contador} = require('./controllers/contador');
 
@@ -51,3 +51,5 @@ app.on("pronto",()=>{
         console.log(`Servidor execultando na porta 3000`);
     });
 })
+
+
