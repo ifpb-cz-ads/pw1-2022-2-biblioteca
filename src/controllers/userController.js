@@ -45,12 +45,12 @@ async function cadastrarUsuario(req,res){
     const password = await  bcrypt.hash(senha, saltos);
 
     const novoUsuario = new Usuario({
-        /*matricula: matricula,
-        categoria: categoria,*/
+        matricula: matricula,
+        categoria: categoria,
         nome: nome,
-        //telefone: telefone,
+        telefone: telefone,
         email: email,
-        //estado: "ok",
+        estado: "ok",
         senha: password
     });
 
