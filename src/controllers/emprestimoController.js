@@ -6,14 +6,13 @@ const path = require('path')
 async function criarEmprestimo(req,res){
 		const {id} = req.body;
 		const user = await Usuario.findById(req.session.user._id);
-
-		console.log(user);
+		console.log(user.id);
 
 		const novoEmprestimo = new Emprestimo({
 			dataEmprestimo: new Date(),
 			dataEntrega: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
 			livro: [id],
-			usuario: [user],
+			usuario: [user.id],
 			diasDesdeUltimoEmprestimo: 0
 		});
 

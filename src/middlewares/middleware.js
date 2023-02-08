@@ -13,14 +13,15 @@ exports.loginReq = async(req, res, next)=>{
 
 	const [, token] = access_token.split(' ');
 
-  jtw.verify(token, process.env.SECRET, (err)=>{
-    if(err){
-      console.log("Erro ao pegar emprestimo, sujeito deve realizar login")
-      res.redirect('/api/logar')
-    }
+  try {
+    const [, token] = access_token.split(' ');
+    await jwt.verify(token, process.env.SECRET);
+
     return next()
-  })
-    
-  next();
+  } catch (e) {
+    req.session.user = null;
+    return res.redirect('/api/logar');
+  }
+
 }
 
