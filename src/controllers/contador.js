@@ -11,10 +11,11 @@ const contador = cron.schedule('* * * * *', async () => {
     // emprestimo.diasDesdeUltimoEmprestimo++;
     emprestimo.diasDesdeUltimoEmprestimo+=7;
     
-    if (emprestimo.dataEmprestimo > emprestimo.dataEntrega) {
+    if (emprestimo.diasDesdeUltimoEmprestimo > 7) {
       // Mude o status do usuário para pendente
       const usuario = await Usuario.findById(emprestimo.usuario);
-      usuario.status = "Pendente";
+      console.log(emprestimo.usuario);
+      usuario.estado = "Pendente";
       await usuario.save();
     }
   

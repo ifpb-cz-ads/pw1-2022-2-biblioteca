@@ -56,6 +56,8 @@ router.post('/login/login', usuarioController.logarUsuario)
 
 router.get('/api/logout', usuarioController.logoutUsuario);
 
+router.get('/api/getAllUser',usuarioController.getAllUser);
+
 //n use
 router.delete('/api/deleteALLEmprestimo', emprestimoController.deleteAllEmprestimos);
 router.delete('/api/deleteAllUser',usuarioController.deleteAllUser);

@@ -70,30 +70,18 @@ async function logarUsuario(req, res){
   }
 };
 
-// async function logarUsuario(req, res){
-//   const {email, senha} = req.body
-
-//   const user = await Usuario.findOne({email: email})
-
-//   const checkPass = await bcrypt.compare(senha, user.senha)
-
-//   if(checkPass){
-//     try {
-//       const secret = process.env.SECRET
-//       const token = jwt.sign(
-//       {
-//         id: user._id,
-//       },
-//       secret,
-//       )
-//       console.log('logado com sucesso', token)
-//       res.redirect('/')
-//     } catch (error) {
-//       console.log(error, 'error')
-//     }
-//   }
-
-// };
+async function getAllUser(req,res){
+  
+  try {
+    const usuarios = await Usuario.find({}, '-senha');
+  
+    res.json(usuarios);
+  } catch (err) {
+    console.error(err);
+    res.send("Erro ao pegar usuários");
+  }
+  
+}
 
 async function logoutUsuario(req, res){
     await req.session.destroy();
@@ -116,4 +104,4 @@ async function deleteAllUser(req,res){
 
   
 
-module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario,deleteAllUser};
+module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario,deleteAllUser,getAllUser};
