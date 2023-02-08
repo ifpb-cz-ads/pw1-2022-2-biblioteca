@@ -91,7 +91,7 @@ async function deleteAllUser(req,res){
 
     res.send("Ok");
   };
-  
 
+  
 
 module.exports = {cadastrarUsuario, logarUsuario, logoutUsuario,deleteAllUser};
