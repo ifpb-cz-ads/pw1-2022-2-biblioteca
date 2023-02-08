@@ -6,4 +6,5 @@ Projeto final da disciplina de Programação Web I.
 ```
 PORT = 
 CONNECTIONSTRING = 
+SECRET =
 ```
