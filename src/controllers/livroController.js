@@ -95,7 +95,6 @@ async function deleteLivro(req, res) {
 
 			let books = [];
 	
-
 			for(let emprestimo of emprestimos){
 				let book = await Livro.findById(emprestimo.livro);
 				books.push(book);

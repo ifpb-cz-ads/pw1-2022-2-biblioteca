@@ -79,7 +79,7 @@ async function deleteEmprestimo(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).json({msg:"Erro ao excluir o empréstimo"});
-  }
+  } 
 }
 
 
