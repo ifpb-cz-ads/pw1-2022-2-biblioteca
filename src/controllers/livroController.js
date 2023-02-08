@@ -56,7 +56,20 @@ async function criarLivro(req,res){
     });
 
 }
+async function deleteLivro(req, res) {
+  try {
+    const livro = await Livro.findByIdAndRemove(req.body.id);
 
+    if (!livro) {
+      return res.send("Livro não encontrado");
+    }
+
+    res.send("Livro deletado com sucesso");
+  } catch (err) {
+    console.error(err);
+    res.send("Erro ao deletar livro");
+  }
+}
 // Frontend
 	// Página inicial / livros (?)
 	async function index(req, res){
@@ -116,4 +129,4 @@ async function deleteAllLivros(req,res){
     res.send("Ok");
   };
 
-module.exports = {busca , buscaTexto, buscaTextual,criarLivro, index, bookForm,livrosEmprestados,deleteAllLivros}; 
+module.exports = {busca , buscaTexto, buscaTextual,criarLivro, index, bookForm,livrosEmprestados,deleteLivro,deleteAllLivros}; 
