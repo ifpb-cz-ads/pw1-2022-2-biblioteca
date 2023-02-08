@@ -59,7 +59,6 @@ async function deleteEmprestimo(req, res) {
 
   const id = req.body.id;
 
-  console.log(id);
   try {
     const emprestimo = await Emprestimo.findById(id);
     console.log(emprestimo)
