@@ -1,5 +1,7 @@
 require('dotenv').config();
 const express = require('express');
+const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
 const app = express();
 const router = require('./router')
 const { default: mongoose } = require("mongoose");
@@ -37,6 +39,8 @@ const sessionOptions = session({
 
 app.use(sessionOptions);
 app.use(middlewareGlobal);
+app.use(flash());
+app.use(cookieParser());
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));

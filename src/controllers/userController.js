@@ -38,13 +38,14 @@ async function cadastrarUsuario(req,res){
 }
 
 async function logarUsuario(req, res){
-  try {
+
       const { email, senha } = req.body;
   
       const user = await Usuario.findOne({email:email});
   
-      const match = await bcrypt.compare(senha, user.senha);
-  
+
+      try {
+        const match = await bcrypt.compare(senha, user.senha);
       if (match) {
         const token = await jwt.sign(
           { id: user.id },
@@ -52,7 +53,7 @@ async function logarUsuario(req, res){
           { expiresIn: 3600 } // 1h
         );
   
-        const tokenBearer = `Bearer ${token}`;
+        const tokenBearer = `${token}`;
   
         req.session.user = user;
   
@@ -64,11 +65,9 @@ async function logarUsuario(req, res){
         console.log('Senha inválida.');
         res.redirect('/api/logar');
       }
-    } catch (error) {
-      console.log(error);
-      res.redirect('/api/logar');
-    }
-
+      } catch (error) {
+        console.log('Error ao logar: ', error)
+      }
 }
 
 
