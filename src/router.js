@@ -46,6 +46,10 @@ router.get('/api/logar', (req, res)=>{
   res.render('login')
 })
 
+router.get('/api/book-page', (req, res)=>{
+  res.render('book-page')
+})
+
 router.post('/login/register', usuarioController.cadastrarUsuario)
 
 router.post('/login/login', usuarioController.logarUsuario)

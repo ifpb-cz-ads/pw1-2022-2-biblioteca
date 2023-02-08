@@ -38,42 +38,64 @@ async function cadastrarUsuario(req,res){
 }
 
 async function logarUsuario(req, res){
+  try {
+    const { email, senha } = req.body;
 
-      const { email, senha } = req.body;
-  
-      const user = await Usuario.findOne({email:email});
-  
+    const user = await Usuario.findOne({email: email});
 
-      try {
-        const match = await bcrypt.compare(senha, user.senha);
-      if (match) {
-        const token = await jwt.sign(
-          { id: user.id },
-          process.env.SECRET,
-          { expiresIn: 3600 } // 1h
-        );
-  
-        const tokenBearer = `Bearer ${token}`;
-  
-        req.session.user = user;
-  
-        res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
-        res.set('Authorization', tokenBearer);
-        console.log('TokenBearer', tokenBearer)
-        res.redirect('/');
-      } else {
-        console.log('Senha inválida.');
-        res.redirect('/api/logar');
-      }
-      } catch (error) {
-        console.log('Error ao logar: ', error)
-      }
-}
+    const match = await bcrypt.compare(senha, user.senha);
 
+    if (match) {
+      const token = await jwt.sign(
+        { userId: user._id },
+        process.env.SECRET,
+        { expiresIn: 3600 } // 1h
+      );
 
+      const tokenBearer = `Bearer ${token}`;
+
+      req.session.user = user;
+
+      res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
+      res.set('Authorization', tokenBearer);
+      res.redirect('/');
+    } else {
+      console.log('Senha inválida.');
+      res.redirect('/api/logar');
+    }
+  } catch (error) {
+    console.log(error);
+    res.redirect('/api/logar');
+  }
+};
+
+// async function logarUsuario(req, res){
+//   const {email, senha} = req.body
+
+//   const user = await Usuario.findOne({email: email})
+
+//   const checkPass = await bcrypt.compare(senha, user.senha)
+
+//   if(checkPass){
+//     try {
+//       const secret = process.env.SECRET
+//       const token = jwt.sign(
+//       {
+//         id: user._id,
+//       },
+//       secret,
+//       )
+//       console.log('logado com sucesso', token)
+//       res.redirect('/')
+//     } catch (error) {
+//       console.log(error, 'error')
+//     }
+//   }
+
+// };
 
 async function logoutUsuario(req, res){
-    req.session.destroy();
+    await req.session.destroy();
     res.redirect('/')
 }
 
