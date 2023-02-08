@@ -2,18 +2,21 @@ const cron = require('node-cron');
 const Emprestimo = require('../models/Emprestimo');
 const Usuario = require('../models/Usuario');
 
-const contador = cron.schedule('0 0 * * *', async () => {
+const contador = cron.schedule('* * * * *', async () => {
   
   const emprestimos = await Emprestimo.find();
-  
-  // Aumentar o contador de diasDesdeUltimoEmprestimo em 1 para cada documento
+
   emprestimos.forEach(async emprestimo => {
+
+    const diaEntrega = new Date(emprestimo.dataEntrega).getDate();
+    const diaEmprestimo = new Date(emprestimo.dataEmprestimo).getDate();
+    const diasParaVencer = diaEntrega - diaEmprestimo;
+
     emprestimo.diasDesdeUltimoEmprestimo++;
-    
-    if (emprestimo.diasDesdeUltimoEmprestimo > 7) {
+
+    if (emprestimo.diasDesdeUltimoEmprestimo > diasParaVencer) {
       // Mude o status do usuário para pendente
       const usuario = await Usuario.findById(emprestimo.usuario);
-      console.log(emprestimo.usuario);
       usuario.estado = "Pendente";
       await usuario.save();
     }
