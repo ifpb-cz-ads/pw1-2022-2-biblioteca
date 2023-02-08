@@ -1,9 +1,6 @@
 const Emprestimo = require('../models/Emprestimo');
 const Usuario = require('../models/Usuario')
 
-
-
-
 async function criarEmprestimo(req,res, ){
 
       const {id} = req.body;

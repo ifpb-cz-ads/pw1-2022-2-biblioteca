@@ -17,12 +17,12 @@ router.get('/index', livroController.index);
 
 router.get('/index/busca', livroController.buscaTextual);
 
-router.get('/cadastrar-livro', livroController.bookForm);
+router.get('/cadastrar-livro', loginReq, livroController.bookForm);
 
-router.get('/livros', livroController.livrosEmprestados);
+router.get('/livros', loginReq, livroController.livrosEmprestados);
 
 // Backend
-router.post('/api/criarLivro', upload.single('image'),livroController.criarLivro);
+router.post('/api/criarLivro', loginReq, upload.single('image'),livroController.criarLivro);
 
 router.get('/api/buscarLivro', livroController.busca);
 
@@ -30,9 +30,9 @@ router.get('/api/buscaTexto', livroController.buscaTexto)
 
 router.post('/api/gerarEmprestimo', loginReq, emprestimoController.criarEmprestimo);
 
-router.get('/api/todosEmprestimo', emprestimoController.todosEmprestimos);
+router.get('/api/todosEmprestimo', loginReq, emprestimoController.todosEmprestimos);
 
-router.get('/api/emprestimoUser', emprestimoController.emprestimoUser);
+router.get('/api/emprestimoUser', loginReq, emprestimoController.emprestimoUser);
 
 
 
