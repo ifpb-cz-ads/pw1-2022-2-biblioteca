@@ -37,6 +37,7 @@ async function cadastrarUsuario(req,res){
     res.redirect('/')
 }
 
+
 async function logarUsuario(req, res){
   try {
     const { email, senha } = req.body;

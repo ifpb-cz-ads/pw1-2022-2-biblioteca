@@ -1,13 +1,11 @@
 const Emprestimo = require('../models/Emprestimo');
 const Usuario = require('../models/Usuario')
-const path = require('path')
 
 
 async function criarEmprestimo(req,res){
 		try {
       const {id} = req.body;
       const user = await Usuario.findById(req.session.user._id);
-      console.log(user.id);
 
       const novoEmprestimo = new Emprestimo({
         dataEmprestimo: new Date(),
@@ -18,7 +16,7 @@ async function criarEmprestimo(req,res){
       });
 
       await novoEmprestimo.save();
-      res.render('book-page')
+      res.redirect('/')
     } catch (error) {
       res.redirect('/api/logar')
     }
@@ -51,8 +49,9 @@ catch(e){
 async function emprestimoUser(req, res) {
 
   try {
-    const emprestimos = await Emprestimo.find({ "usuario": req.session.user._id }).populate('livro');
-  
+
+    const emprestimos = await Emprestimo.find({ "usuario": req.session.user._id }).populate("livro");
+
     console.log(emprestimos);
     res.send(emprestimos);
   } catch (err) {
@@ -61,8 +60,20 @@ async function emprestimoUser(req, res) {
   }
 }
 
+async function deleteEmprestimo(req, res) {
+  try {
+    const emprestimo = await Emprestimo.findById(req.body.id);
+    if (!emprestimo){
+      return res.status(404).send("Empréstimo não encontrado");
+    } 
+    await emprestimo.remove();
+    res.json({msg:"Empréstimo excluído com sucesso"});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({msg:"Erro ao excluir o empréstimo"});
+  }
+}
 
-  
-  
 
-module.exports={criarEmprestimo,deleteAllEmprestimos,todosEmprestimos,emprestimoUser};
+
+module.exports={criarEmprestimo,deleteAllEmprestimos,todosEmprestimos,emprestimoUser,deleteEmprestimo};
