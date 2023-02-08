@@ -1,4 +1,5 @@
 const Livro = require('../models/Livro');
+const Emprestimo = require('../models/Emprestimo');
 
 async function busca (req,res){
 
@@ -75,7 +76,6 @@ async function deleteLivro(req, res) {
 	async function index(req, res){
 		try{
 			const books = await Livro.find({});
-			//console.log(books);
 			res.render('index', {books});
 		} catch(err){
 			console.log(err);
@@ -90,8 +90,21 @@ async function deleteLivro(req, res) {
 
   // Ver livros emprestados
 	async function livrosEmprestados(req, res) {
-		const books = await Livro.find({});
-		res.render('livrosEmprestados', {books})
+  	try {
+    	const emprestimos = await Emprestimo.find({ "usuario": req.session.user._id });
+
+			let books = [];
+
+			for(let emprestimo of emprestimos){
+				let book = await Livro.findById(emprestimo.livro);
+				books.push(book);
+			}
+
+			res.render('livrosEmprestados', {books})
+  	} catch (err) {
+    	console.error(err);
+    	res.send("Erro ao buscar empréstimos do usuário");
+  	}
 	}
 
 	// Mostrar busca texto

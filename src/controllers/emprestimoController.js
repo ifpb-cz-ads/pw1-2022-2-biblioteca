@@ -37,7 +37,7 @@ async function todosEmprestimos(req,res){
 
   try{
     const emprestimo = await Emprestimo.find({});
-    res.json(emprestimo );
+    res.json(emprestimo);
 }
 catch(e){
     console.log(e);
@@ -47,7 +47,6 @@ catch(e){
 }
 
 async function emprestimoUser(req, res) {
-
   try {
 
     const emprestimos = await Emprestimo.find({ "usuario": req.session.user._id }).populate("livro");
