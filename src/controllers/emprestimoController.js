@@ -56,8 +56,13 @@ async function emprestimoUser(req, res) {
 }
 
 async function deleteEmprestimo(req, res) {
+
+  const id = req.body.id;
+
+  console.log(id);
   try {
-    const emprestimo = await Emprestimo.findById(req.body.id);
+    const emprestimo = await Emprestimo.findById(id);
+    console.log(emprestimo)
     if (!emprestimo){
       return res.status(404).send("Empréstimo não encontrado");
     } 

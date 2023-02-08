@@ -30,7 +30,7 @@ router.get('/api/buscaTexto', livroController.buscaTexto)
 
 router.post('/api/gerarEmprestimo', loginReq, emprestimoController.criarEmprestimo);
 
-router.get('/api/todosEmprestimo', loginReq, emprestimoController.todosEmprestimos);
+router.get('/api/todosEmprestimo',  emprestimoController.todosEmprestimos);
 
 router.get('/api/emprestimoUser', loginReq, emprestimoController.emprestimoUser);
 
