@@ -67,6 +67,15 @@ async function deleteEmprestimo(req, res) {
     } 
     await emprestimo.remove();
     res.json({msg:"Empréstimo excluído com sucesso"});
+
+    const user = await Usuario.findById(req.session.user._id);
+    const outrosEmprestimos = await Emprestimo.findById(user.id);
+
+    if (outrosEmprestimos.length === 0) {
+      user.estado = "ok";
+      await usuario.save();
+    }
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({msg:"Erro ao excluir o empréstimo"});
