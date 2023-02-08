@@ -10,29 +10,7 @@ exports.middlewareGlobal = async (req, res, next) => {
 
 }
 
-exports.loginReq = async(req, res, next)=>{
-  console.log('rota login')
-  const { access_token } = req.cookies
-  const msg = 'Você precisa se autenticar para acessar essa página.';
-  console.log('access_token: ', access_token)
-  if (access_token) {
-    try {
-      const [token] = access_token.split(' ');
-      await jwt.verify(token, process.env.SECRET);
-      console.log('teste de acc e req',access_token, req.cookies);
-      res.redirect('/api/book-page');
-      return next();
-    } catch (e) {
-      req.session.user = null; // session's over
 
-      return res.redirect('/api/logar');
-    }
-  } else {
-    req.session.user = null; // session's over
-    return res.redirect('/api/logar');
-  }
-
-};
 
   // const token = req.headers['x-acess-token'];
   // console.log(token, 'token loginreq')

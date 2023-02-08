@@ -13,10 +13,8 @@ async function busca (req,res){
 }
 
 async function buscaTexto(req,res){
-
-   
-    const query = req.query.texto;
-    
+		const {query} = req.query;
+		
     try{
         const livro  = await Livro.find({ $text: { $search: query } }, { score: { $meta: 'textScore' } })
         .sort({ score: { $meta: 'textScore' } });
@@ -83,6 +81,28 @@ async function criarLivro(req,res){
 		res.render('livrosEmprestados', {books})
 	}
 
+	// Mostrar busca texto
+	async function buscaTextual(req, res){
+		const {query} = req.query;
+		
+    try{
+        const books  = await Livro.find({ $text: { $search: query } }, { score: { $meta: 'textScore' } })
+        .sort({ score: { $meta: 'textScore' } });
+
+        if(books.length == 0){
+            res.redirect("/");
+        }
+        else{
+            res.render('index', {books});
+        }
+    }
+
+    catch(e){
+        console.log(e);
+        res.status(404).send(`Não foi possivel encontrar sua busca`);
+    }
+	}
+
 
 // deletar livros    
 async function deleteAllLivros(req,res){
@@ -95,14 +115,5 @@ async function deleteAllLivros(req,res){
 
     res.send("Ok");
   };
-  
 
-// Ver livros emprestados
-async function livrosEmprestados(req, res) {
-    const books = await Livro.find({});
-    res.render('livrosEmprestados', {books})
-}
-
-
-
-module.exports = {busca , buscaTexto, criarLivro, index, bookForm,livrosEmprestados,deleteAllLivros}; 
+module.exports = {busca , buscaTexto, buscaTextual,criarLivro, index, bookForm,livrosEmprestados,deleteAllLivros}; 

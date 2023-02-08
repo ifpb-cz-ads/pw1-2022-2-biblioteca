@@ -9,6 +9,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo');
 const { middlewareGlobal,} = require('./middlewares/middleware');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 // const {contador} = require('./controllers/contador');
 
 
@@ -37,6 +38,7 @@ const sessionOptions = session({
 //contador diario
 // contador.start();
 
+app.use(cookieParser());
 app.use(sessionOptions);
 app.use(middlewareGlobal);
 app.use(flash());

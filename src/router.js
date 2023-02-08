@@ -8,20 +8,20 @@ const Usuario = require('./models/Usuario');
 const { application } = require('express');
 const {upload} = require('./config/parser');
 
+// Frontend
 router.get('/', (req, res)=>{
   res.redirect('/index')
 })
 
 router.get('/index', livroController.index);
 
+router.get('/index/busca', livroController.buscaTextual);
+
 router.get('/cadastrar-livro', livroController.bookForm);
 
 router.get('/livros', livroController.livrosEmprestados);
 
-router.get('/api/book-page', (req, res)=>{
-  res.render('book-page')
-})
-
+// Backend
 router.post('/api/criarLivro', upload.single('image'),livroController.criarLivro);
 
 router.get('/api/buscarLivro', livroController.busca);
@@ -54,12 +54,5 @@ router.get('/api/logout', usuarioController.logoutUsuario);
 
 //n use
 router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
-
-router.get("/api/teste/:id"), async(req, res)=>{
-  const id = req.params.id
-
-
-}
-
 
 module.exports = router;
