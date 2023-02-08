@@ -16,7 +16,6 @@ async function criarEmprestimo(req,res, ){
 
       await novoEmprestimo.save();
       res.redirect('/')
-
 }
 
 async function deleteAllEmprestimos(req,res){
