@@ -1,10 +1,11 @@
 const Emprestimo = require('../models/Emprestimo');
 const Usuario = require('../models/Usuario')
-const path = require('path')
+const path = require('path');
+const { loginReq } = require('../middlewares/middleware');
 
 
-async function criarEmprestimo(req,res){
-		try {
+async function criarEmprestimo(req,res, ){
+
       const {id} = req.body;
       const user = await Usuario.findById(req.session.user._id);
       console.log(user.id);
@@ -19,9 +20,7 @@ async function criarEmprestimo(req,res){
 
       await novoEmprestimo.save();
       res.render('book-page')
-    } catch (error) {
-      res.redirect('/api/logar')
-    }
+    
 }
 
 async function deleteAllEmprestimos(req,res){
