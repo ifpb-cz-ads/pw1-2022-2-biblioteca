@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const flash = require('connect-flash');
-const cookieParser = require('cookie-parser');
 const app = express();
 const router = require('./router')
 const { default: mongoose } = require("mongoose");
@@ -38,7 +37,6 @@ const sessionOptions = session({
 //contador diario
 // contador.start();
 
-app.use(cookieParser());
 app.use(sessionOptions);
 app.use(middlewareGlobal);
 app.use(flash());

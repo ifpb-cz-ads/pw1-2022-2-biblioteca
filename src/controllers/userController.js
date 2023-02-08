@@ -53,7 +53,7 @@ async function logarUsuario(req, res){
           { expiresIn: 3600 } // 1h
         );
   
-        const tokenBearer = `${token}`;
+        const tokenBearer = `Bearer ${token}`;
   
         req.session.user = user;
   
