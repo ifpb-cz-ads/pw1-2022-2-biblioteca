@@ -52,7 +52,7 @@ async function criarLivro(req,res){
         if (err) {
           res.status(400).send(err);
         } else {
-          res.status(200).json({mensagem:result});
+          res.status(200).redirect('/');
         }
     });
 
@@ -93,7 +93,7 @@ async function deleteLivro(req, res) {
   	try {
     	const emprestimos = await Emprestimo.find({ "usuario": req.session.user._id });
 
-			let books = [];
+			const books = [];
 	
 			for(let emprestimo of emprestimos){
 				let book = await Livro.findById(emprestimo.livro);

@@ -34,7 +34,7 @@ async function cadastrarUsuario(req,res){
     catch(e){
         console.log(e);
     }
-    res.redirect('/')
+    res.redirect('/api/logar')
 }
 
 

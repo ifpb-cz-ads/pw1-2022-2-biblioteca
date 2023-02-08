@@ -63,6 +63,6 @@ router.delete('/api/deleteALLEmprestimo', emprestimoController.deleteAllEmpresti
 router.delete('/api/deleteAllUser',usuarioController.deleteAllUser);
 
 router.delete('/api/deleteBook',livroController.deleteLivro);
-router.delete('/api/deleteEmprestimo',emprestimoController.deleteEmprestimo);
+router.post('/api/deleteEmprestimo',emprestimoController.deleteEmprestimo);
 
 module.exports = router;

@@ -9,7 +9,7 @@ const MongoStore = require('connect-mongo');
 const { middlewareGlobal,} = require('./middlewares/middleware');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-// const {contador} = require('./controllers/contador');
+const {contador} = require('./controllers/contador');
 
 
 

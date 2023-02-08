@@ -66,15 +66,17 @@ async function deleteEmprestimo(req, res) {
       return res.status(404).send("Empréstimo não encontrado");
     } 
     await emprestimo.remove();
-    res.json({msg:"Empréstimo excluído com sucesso"});
 
     const user = await Usuario.findById(req.session.user._id);
     const outrosEmprestimos = await Emprestimo.findById(user.id);
+    console.log(outrosEmprestimos);
 
-    if (outrosEmprestimos.length === 0) {
+    if (outrosEmprestimos == null) {
       user.estado = "ok";
-      await usuario.save();
+      await user.save();
     }
+
+    res.redirect('/');
     
   } catch (err) {
     console.error(err);
