@@ -21,7 +21,6 @@ async function criarEmprestimo(req,res){
     await novoEmprestimo.save();
 
 
-    
 }
 
 async function deleteAllEmprestimos(req,res){
