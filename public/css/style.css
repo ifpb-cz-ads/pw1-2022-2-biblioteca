@@ -27,7 +27,10 @@ header h1{
 .upper-half {
 	display: flex;
 	flex-direction row;
-	height: 50%;
+}
+
+img {
+	width: 50%;
 }
 
 .informacao {

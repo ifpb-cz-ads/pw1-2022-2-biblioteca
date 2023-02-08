@@ -1,3 +1,4 @@
+const e = require('connect-flash');
 const jtw = require('jsonwebtoken');
 
 exports.middlewareGlobal = async (req, res, next) => {
@@ -8,18 +9,24 @@ exports.middlewareGlobal = async (req, res, next) => {
 }
 
 exports.loginReq = async(req, res, next)=>{
-	const {access_token} = req.cookies;
+  const {access_token} = req.cookies
 
-	const [, token] = access_token.split(' ');
-
-  jtw.verify(token, process.env.SECRET, (err)=>{
-    if(err){
-      console.log("Erro ao pegar emprestimo, sujeito deve realizar login")
-      res.redirect('/api/logar')
+  if(access_token){
+    try {
+      const [, token] = access_token.split(' ');
+      await jtw.verify(token, process.env.SECRET)
+      console.log('Acesso autorizado')
+      next()
+    } catch (error) {
+      console.log(error)
+      res.redirect('/')
     }
-    return next()
-  })
-    
-  next();
+    }else{
+      req.session.user = null
+      console.log('Acesso negado, necessário realizar login')
+      return res.redirect('/api/logar')
 }
 
+};
+
+  

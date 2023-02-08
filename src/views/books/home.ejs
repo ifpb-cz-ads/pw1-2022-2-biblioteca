@@ -2,7 +2,7 @@
 <% books.forEach(function(book) { %>
 	<div class="book border">
 		<div class="upper-half">
-			<img src="<%= book.capa %>" class="img-fluid img-thumbnail">
+			<img src="<%= book.capa %>" alt="<%= book.title %>" class="img-fluid img-thumbnail">
 			<div class="informacao">
 				<h3 class="item">Titulo: <%= book.title %></h3>
 				<h3 class="item">Autor: <%=  book.autor %></h3>
