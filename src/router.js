@@ -57,6 +57,10 @@ router.post('/login/login', usuarioController.logarUsuario)
 router.get('/api/logout', usuarioController.logoutUsuario);
 
 //n use
-router.delete('/api/delete', emprestimoController.deleteAllEmprestimos);
+router.delete('/api/deleteALLEmprestimo', emprestimoController.deleteAllEmprestimos);
+router.delete('/api/deleteAllUser',usuarioController.deleteAllUser);
+
+router.delete('/api/deleteBook',livroController.deleteLivro);
+router.delete('/api/deleteEmprestimo',emprestimoController.deleteEmprestimo);
 
 module.exports = router;

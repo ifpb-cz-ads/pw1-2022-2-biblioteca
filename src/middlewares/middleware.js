@@ -1,6 +1,5 @@
 const e = require('connect-flash');
 const jtw = require('jsonwebtoken');
-const Usuario = require('../models/Usuario')
 
 exports.middlewareGlobal = async (req, res, next) => {
   res.locals.user = req.session.user

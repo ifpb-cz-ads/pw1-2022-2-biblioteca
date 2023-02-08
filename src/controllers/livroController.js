@@ -1,4 +1,5 @@
 const Livro = require('../models/Livro');
+const Emprestimo = require('../models/Emprestimo');
 
 async function busca (req,res){
 
@@ -56,13 +57,25 @@ async function criarLivro(req,res){
     });
 
 }
+async function deleteLivro(req, res) {
+  try {
+    const livro = await Livro.findByIdAndRemove(req.body.id);
 
+    if (!livro) {
+      return res.send("Livro não encontrado");
+    }
+
+    res.send("Livro deletado com sucesso");
+  } catch (err) {
+    console.error(err);
+    res.send("Erro ao deletar livro");
+  }
+}
 // Frontend
 	// Página inicial / livros (?)
 	async function index(req, res){
 		try{
 			const books = await Livro.find({});
-			//console.log(books);
 			res.render('index', {books});
 		} catch(err){
 			console.log(err);
@@ -77,8 +90,21 @@ async function criarLivro(req,res){
 
   // Ver livros emprestados
 	async function livrosEmprestados(req, res) {
-		const books = await Livro.find({});
-		res.render('livrosEmprestados', {books})
+  	try {
+    	const emprestimos = await Emprestimo.find({ "usuario": req.session.user._id });
+
+			let books = [];
+
+			for(let emprestimo of emprestimos){
+				let book = await Livro.findById(emprestimo.livro);
+				books.push(book);
+			}
+
+			res.render('livrosEmprestados', {books})
+  	} catch (err) {
+    	console.error(err);
+    	res.send("Erro ao buscar empréstimos do usuário");
+  	}
 	}
 
 	// Mostrar busca texto
@@ -116,4 +142,4 @@ async function deleteAllLivros(req,res){
     res.send("Ok");
   };
 
-module.exports = {busca , buscaTexto, buscaTextual,criarLivro, index, bookForm,livrosEmprestados,deleteAllLivros}; 
+module.exports = {busca , buscaTexto, buscaTextual,criarLivro, index, bookForm,livrosEmprestados,deleteLivro,deleteAllLivros}; 
