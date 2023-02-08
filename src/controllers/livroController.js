@@ -94,13 +94,14 @@ async function deleteLivro(req, res) {
     	const emprestimos = await Emprestimo.find({ "usuario": req.session.user._id });
 
 			let books = [];
+	
 
 			for(let emprestimo of emprestimos){
 				let book = await Livro.findById(emprestimo.livro);
 				books.push(book);
 			}
 
-			res.render('livrosEmprestados', {books})
+			res.render('livrosEmprestados', {books, emprestimos});
   	} catch (err) {
     	console.error(err);
     	res.send("Erro ao buscar empréstimos do usuário");
