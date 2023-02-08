@@ -15,13 +15,16 @@ exports.loginReq = async(req, res, next)=>{
     try {
       const [, token] = access_token.split(' ');
       await jtw.verify(token, process.env.SECRET)
+      console.log('Acesso autorizado')
       next()
     } catch (error) {
       console.log(error)
       res.redirect('/')
     }
     }else{
-      console.log('acesso negado')
+      req.session.user = null
+      console.log('Acesso negado, necessário realizar login')
+      return res.redirect('/api/logar')
 }
 
 };

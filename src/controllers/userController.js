@@ -97,6 +97,7 @@ async function logarUsuario(req, res){
 
 async function logoutUsuario(req, res){
     await req.session.destroy();
+    res.clearCookie('access_token');
     res.redirect('/')
 }
 

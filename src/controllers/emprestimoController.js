@@ -1,9 +1,8 @@
 const Emprestimo = require('../models/Emprestimo');
 const Usuario = require('../models/Usuario')
 
+async function criarEmprestimo(req,res, ){
 
-async function criarEmprestimo(req,res){
-		try {
       const {id} = req.body;
       const user = await Usuario.findById(req.session.user._id);
 
@@ -17,9 +16,6 @@ async function criarEmprestimo(req,res){
 
       await novoEmprestimo.save();
       res.redirect('/')
-    } catch (error) {
-      res.redirect('/api/logar')
-    }
 }
 
 async function deleteAllEmprestimos(req,res){
