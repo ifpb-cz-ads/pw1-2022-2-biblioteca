@@ -1,5 +1,6 @@
 <div class="layout">
 <% books.forEach(function(book) { %>
+	<% emprestimos.forEach(function(emprestimo) {%>
 	<div class="book border">
 		<div class="upper-half">
 			<img src="<%= book.capa %>" alt="<%= book.title %>" class="img-fluid img-thumbnail">
@@ -8,12 +9,15 @@
 				<h3 class="item">Autor: <%=  book.autor %></h3>
 				<h3 class="item">ISBN: <%= book.ano %></h3>
 
-				<form action="http://localhost:3000/api/gerarEmprestimo" method="post" class="buttons">
-					<input type="hidden" value="<%= book._id %>" name="id">
-					<input type="submit" class="btn btn-primary" value="Empréstimo">
+				<% if(emprestimos) { %>
+					<form action="http://localhost:3000/api/gerarEmprestimo" method="post" class="buttons">
+					<input type="hidden" value="<%= emprestimo._id %>" name="id">
+					<input type="submit" class="btn btn-primary" value="Devolver">
+				<% } %>
 				</form>
 			</div>
 		</div>
 	</div>
+	<% }) %>
 <% }); %>
 </div>
