@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const Emprestimo = require('../models/Emprestimo');
 const Usuario = require('../models/Usuario');
 
-const contador = cron.schedule('* * * * *', async () => {
+const contador = cron.schedule('0 0 * * *', async () => {
   
   const emprestimos = await Emprestimo.find();
 
